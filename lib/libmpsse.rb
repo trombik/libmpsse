@@ -44,6 +44,4 @@ module LibMpsse
 
   require 'libmpsse/mpsse'
   require 'libmpsse/i2c_device'
-  require 'libmpsse/pwm'
-  require 'libmpsse/motor'
 end
