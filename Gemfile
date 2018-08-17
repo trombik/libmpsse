@@ -10,8 +10,4 @@ group :development do
   gem 'pry-byebug'
   gem 'guard'
   gem 'guard-rspec'
-  require 'rbconfig'
-  if RbConfig::CONFIG['target_os'] =~ /(?i-mx:bsd|dragonfly)/
-    gem 'rb-kqueue', '>= 0.2'
-  end
 end
