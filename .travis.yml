@@ -1,0 +1,15 @@
+language: ruby
+addons:
+  apt:
+    packages:
+      - libftdi-dev
+      - make
+env:
+  - LD_LIBRARY_PATH=${HOME}/lib
+before_script:
+  - git clone --recurse-submodules --single-branch https://github.com/devttys0/libmpsse.git
+  - mkdir -p "${HOME}/lib"
+  - (cd libmpsse/src && ./configure --help && ./configure --disable-python --prefix="${HOME}" && make && make install)
+rvm:
+  - 2.4
+  - 2.2
