@@ -1,7 +1,7 @@
 require 'ftdi'
 
 module LibMpsse
-  class Context < FFI::Struct
+  class Context < FFI::ManagedStruct
     layout :description,      :string,
            :ftdi_context,     Ftdi::Context,
            :mode,             Modes,
@@ -25,5 +25,8 @@ module LibMpsse
            :txrx,             :uint8,
            :tack,             :uint8,
            :rack,             :uint8
+    def self.release(context)
+      LibMpsse::Close(context)
+    end
   end
 end
