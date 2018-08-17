@@ -31,16 +31,16 @@ module LibMpsse
 
   # I2C functions
   attach_function :GetAck, [:pointer], :int
-  attach_function :SetAck, [:pointer, :int], :void
+  attach_function :SetAck, %i[pointer int], :void
   attach_function :SendAcks, [:pointer], :void
   attach_function :SendNacks, [:pointer], :void
 
   attach_function :ErrorString, [:pointer], :string
 
-  attach_function :Write, [:pointer, :pointer, :int], :int
-  attach_function :Read, [:pointer, :int], :pointer
-  attach_function :ReadBits, [:pointer, :int], :uint8
-  attach_function :Transfer, [:pointer, :string, :int], :string
+  attach_function :Write, %i[pointer pointer int], :int
+  attach_function :Read, %i[pointer int], :pointer
+  attach_function :ReadBits, %i[pointer int], :uint8
+  attach_function :Transfer, %i[pointer string int], :string
 
   require 'libmpsse/mpsse'
   require 'libmpsse/i2c_device'

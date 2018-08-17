@@ -7,7 +7,7 @@ module LibMpsse
 
     def initialize(address)
       @address = address
-      @mpsse = get_new_context
+      @mpsse = new_context
 
       # Perform a software reset
       transaction do
@@ -15,7 +15,7 @@ module LibMpsse
       end
     end
 
-    def get_new_context
+    def new_context
       Mpsse.new(mode: Modes[:i2c])
     end
 

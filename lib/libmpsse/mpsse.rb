@@ -25,15 +25,15 @@ module LibMpsse
     attr_reader :context
 
     def initialize(mode:, freq: ClockRates[:four_hundred_khz], endianess: MSB)
-      @context = get_new_context(mode, freq, endianess)
-      raise CannotOpenError if @context[:open] == 0
+      @context = new_context(mode, freq, endianess)
+      raise CannotOpenError if (@context[:open]).zero?
 
       # Enable TriState mode in I2C
       LibMpsse::Tristate(@context) if mode == Modes[:i2c]
     end
 
-    def get_new_context(mode, freq, endianess)
-       @context = Context.new(LibMpsse::MPSSE(mode, freq, endianess))
+    def new_context(mode, freq, endianess)
+      @context = Context.new(LibMpsse::MPSSE(mode, freq, endianess))
     end
 
     def start

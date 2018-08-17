@@ -1,4 +1,4 @@
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'libmpsse/version'
 
@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'ffi', '~> 1.9.18'
   # XXX disable libftdi dependency as the gem needs to be patched
-  #spec.add_dependency 'libftdi-ruby', '~> 0.0.20'
+  # spec.add_dependency 'libftdi-ruby', '~> 0.0.20'
 
   spec.add_development_dependency 'bundler', '~> 1.14'
   spec.add_development_dependency 'rake', '~> 10.0'
