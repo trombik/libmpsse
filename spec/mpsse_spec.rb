@@ -1,11 +1,7 @@
 require "spec_helper"
 
-RSpec.describe Mpsse do
+RSpec.describe LibMpsse do
   it "has a version number" do
-    expect(Mpsse::VERSION).not_to be nil
-  end
-
-  it "does something useful" do
-    expect(false).to eq(true)
+    expect(LibMpsse::VERSION).not_to be nil
   end
 end
