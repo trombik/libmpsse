@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "mpsse"
+require "libmpsse"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

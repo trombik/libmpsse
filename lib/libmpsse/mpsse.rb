@@ -1,12 +1,39 @@
 module LibMpsse
   class Mpsse
+    # Base error of LibMpsse::Mpsse
+    class Error < RuntimeError
+    end
+
+    # When device cannot be opened
+    class CannotOpenError < Error
+    end
+
+    # Error with status code and strings from libmpsse
+    class StatusCodeError < Error
+      attr_reader :status_code
+
+      def initialize(status_code, message)
+        super(message)
+        @status_code = status_code
+      end
+
+      def to_s
+        "#{status_code}: #{super}"
+      end
+    end
+
     attr_reader :context
 
     def initialize(mode:, freq: ClockRates[:four_hundred_khz], endianess: MSB)
-      @context = Context.new(LibMpsse::MPSSE(mode, freq, endianess))
+      @context = get_new_context(mode, freq, endianess)
+      raise CannotOpenError if @context[:open] == 0
 
       # Enable TriState mode in I2C
       LibMpsse::Tristate(@context) if mode == Modes[:i2c]
+    end
+
+    def get_new_context(mode, freq, endianess)
+       @context = Context.new(LibMpsse::MPSSE(mode, freq, endianess))
     end
 
     def start
