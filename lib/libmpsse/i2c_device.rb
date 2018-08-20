@@ -14,15 +14,16 @@ module LibMpsse
     ACK = 0
     NACK = 1
 
-    attr_reader :address, :mpsse
+    attr_reader :address, :freq, :mpsse
 
-    def initialize(address)
+    def initialize(address:, freq: ClockRates[:one_hundred_khz])
       @address = address
+      @freq = freq
       @mpsse = new_context
     end
 
     def new_context
-      Mpsse.new(mode: Modes[:i2c])
+      Mpsse.new(mode: Modes[:i2c], freq: @freq, endianess: MSB)
     end
 
     def transaction
