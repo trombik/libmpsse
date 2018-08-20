@@ -80,5 +80,10 @@ module LibMpsse
     def error_string
       LibMpsse::ErrorString(context)
     end
+
+    def description
+      str_p = LibMpsse::GetDescription(context)
+      str_p.read_string
+    end
   end
 end

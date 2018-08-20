@@ -1,10 +1,14 @@
 require 'spec_helper'
 
 describe LibMpsse::Mpsse do
+  let(:libmpsse) { class_double('LibMpsse').as_stubbed_const(:transfer_nested_constants => true) }
+  let(:mpsse) { described_class.new(mode: :i2c) }
+  let(:context) do
+    { open: 1 }
+  end
+
   describe '#initialize' do
     context 'when mode is i2c' do
-      let(:mpsse) { described_class.new(mode: :i2c) }
-
       context 'when device is successfully opened' do
         let(:context) do
           { open: 1 }
@@ -28,4 +32,15 @@ describe LibMpsse::Mpsse do
       end
     end
   end
+
+  describe ".description" do
+
+    it 'returns description' do
+      allow_any_instance_of(LibMpsse::Mpsse).to receive(:new_context).and_return(context)
+
+      expect(libmpsse).to receive(:GetDescription).and_return(FFI::MemoryPointer.from_string('My device'))
+      expect(mpsse.description).to eq "My device"
+    end
+  end
+
 end
