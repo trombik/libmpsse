@@ -26,6 +26,7 @@ module LibMpsse
   attach_function :Start, [:pointer], :int
   attach_function :Stop, [:pointer], :int
   attach_function :Tristate, [:pointer], :int
+  attach_function :GetDescription, [:pointer], :pointer
 
   # SPI functions
 
