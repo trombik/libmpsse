@@ -4,7 +4,7 @@ describe LibMpsse::I2CDevice do
   let(:address) { 0x20 }
   let(:address_read) { (address << 1 | 1) }
   let(:address_write) { address << 1 }
-  let(:i2c) { described_class.new(address) }
+  let(:i2c) { described_class.new(address: address) }
   let(:mpsse) { instance_double('mpsse') }
   let(:register_address) { 0x01 }
   let(:register_value_first) { 0xbe }
@@ -20,6 +20,25 @@ describe LibMpsse::I2CDevice do
   describe '#initialize' do
     it 'does not raise' do
       expect { i2c }.not_to raise_error
+    end
+
+    context 'when freq is ommited' do
+      it 'defaults to one_hundred_khz' do
+        expect(i2c.freq).to eq LibMpsse::ClockRates[:one_hundred_khz]
+      end
+    end
+
+    context 'when LibMpsse::ClockRates[:four_hundred_khz] is given' do
+      let(:i2c) do
+        described_class.new(
+          address: address,
+          freq: LibMpsse::ClockRates[:four_hundred_khz]
+        )
+      end
+
+      it 'sets freq to four_hundred_khz' do
+        expect(i2c.freq).to eq LibMpsse::ClockRates[:four_hundred_khz]
+      end
     end
   end
 
