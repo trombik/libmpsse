@@ -27,9 +27,6 @@ module LibMpsse
     def initialize(mode:, freq: ClockRates[:four_hundred_khz], endianess: MSB)
       @context = new_context(mode, freq, endianess)
       raise CannotOpenError if (@context[:open]).zero?
-
-      # Enable TriState mode in I2C
-      LibMpsse::Tristate(@context) if mode == Modes[:i2c]
     end
 
     def new_context(mode, freq, endianess)
@@ -50,7 +47,7 @@ module LibMpsse
 
     def read(size)
       data_ptr = LibMpsse::Read(context, size)
-      data_ptr.read_bytes(size)
+      data_ptr.read_array_of_type(FFI::TYPE_UINT8, :read_uint8, size)
     end
 
     def read_bits(size = 8)

@@ -1,5 +1,16 @@
 module LibMpsse
   class I2CDevice
+    # Base error of LibMpsse::Mpsse
+    class Error < RuntimeError
+    end
+
+    # When slave does not send ACK back
+    class NoAckReceived < Error
+      def to_s
+        'no ack from slave'
+      end
+    end
+
     ACK = 0
     NACK = 1
 
@@ -8,11 +19,6 @@ module LibMpsse
     def initialize(address)
       @address = address
       @mpsse = new_context
-
-      # Perform a software reset
-      transaction do
-        @mpsse.write([0x00, 0x06])
-      end
     end
 
     def new_context
@@ -34,23 +40,25 @@ module LibMpsse
 
     def read(size, register)
       transaction do
+        data = []
         @mpsse.write([address_frame(false), register])
+        raise NoAckReceived if @mpsse.ack != ACK
         @mpsse.start
         @mpsse.write([address_frame])
-        data = @mpsse.read(size)
+        raise NoAckReceived if @mpsse.ack != ACK
+        data = @mpsse.read(size - 1) if size > 1
         @mpsse.send_nacks
-        @mpsse.read(1)
-        @mpsse.send_acks
-        data
+        data << @mpsse.read(1).first
       end
     end
 
     def read8(register)
-      transaction do
-        @mpsse.write([address_frame, register])
-        @mpsse.start
-        @mpsse.read_bits
-      end
+      read(1, register).first
+    end
+
+    def read16(register)
+      (first, last) = read(2, register)
+      ((first << 8) & 0xff00) | (last & 0xff)
     end
 
     def ack
