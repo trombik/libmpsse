@@ -63,9 +63,9 @@ describe LibMpsse::I2CDevice do
   describe '.read' do
     context 'when slave responds to read request to a 16 bit register without error' do
       it 'returns register value as an array' do
-        allow(mpsse).to receive(:write)
+        allow(mpsse).to receive(:write).with([address_write, register_address]).ordered
+        allow(mpsse).to receive(:write).with([address_read]).ordered
         allow(mpsse).to receive(:ack).and_return(LibMpsse::I2CDevice::ACK)
-        allow(mpsse).to receive(:write)
         allow(mpsse).to receive(:read).and_return(
           [register_value_first],
           [register_value_last]
