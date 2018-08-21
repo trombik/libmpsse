@@ -46,7 +46,7 @@ module LibMpsse
 
     def write(register, value)
       transaction do
-        @mpsse.write([address_frame(false), register, value & 0xFF])
+        @mpsse.write([address_frame(:write), register, value & 0xFF])
       end
     end
 
@@ -61,10 +61,10 @@ module LibMpsse
     def read(register, size)
       transaction do
         data = []
-        @mpsse.write([address_frame(false), register])
+        @mpsse.write([address_frame(:write), register])
         raise NoAckReceived if @mpsse.ack != ACK
         @mpsse.start
-        @mpsse.write([address_frame])
+        @mpsse.write([address_frame(:read)])
         raise NoAckReceived if @mpsse.ack != ACK
         data = @mpsse.read(size - 1) if size > 1
         @mpsse.send_nacks
@@ -104,16 +104,22 @@ module LibMpsse
     # failure.
     def ping
       transaction do
-        @mpsse.write([address_frame(false)])
+        @mpsse.write([address_frame(:write)])
         ack == ACK
       end
     end
 
     private
 
-    def address_frame(read = true)
+    def address_frame(operation)
+      unless %i[read write].include? operation
+        raise ArgumentError, format(
+          'Unknown operation, must be :read or :write `%<operation>s`',
+          operation: operation
+        )
+      end
       frame = address << 1
-      read ? frame | 0x01 : frame
+      operation == :read ? frame | 0x01 : frame
     end
 
     # Base class for all error class for LibMpsse::I2CDevice
