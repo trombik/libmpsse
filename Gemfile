@@ -17,6 +17,8 @@ gem 'libftdi-ruby', git: 'https://github.com/trombik/libftdi-ruby.git', branch: 
 group :development do
   gem 'guard'
   gem 'guard-rspec'
+  gem 'guard-rubocop'
+  gem 'guard-yard'
   gem 'pry'
   gem 'pry-byebug'
   gem 'rubocop'
