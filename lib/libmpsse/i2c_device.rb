@@ -55,10 +55,10 @@ module LibMpsse
     # not been received during the transaction. Repeated start is used before
     # reading register values.
     #
-    # @param [Integer] size in byte to read
     # @param [Integer] register address
+    # @param [Integer] size in byte to read
     # @return [Array<Integer>] array of register values
-    def read(size, register)
+    def read(register, size)
       transaction do
         data = []
         @mpsse.write([address_frame(false), register])
@@ -77,14 +77,14 @@ module LibMpsse
     # @param [Integer] register address
     # @return [Integer] register value
     def read8(register)
-      read(1, register).first
+      read(register, 1).first
     end
 
     # Read two bytes from a 16 bit register
     # @param [Integer] register address
     # @return [Integer] register value
     def read16(register)
-      (first, last) = read(2, register)
+      (first, last) = read(register, 2)
       ((first << 8) & 0xff00) | (last & 0xff)
     end
 

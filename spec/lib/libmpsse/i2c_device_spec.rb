@@ -72,7 +72,7 @@ describe LibMpsse::I2CDevice do
         )
         allow(mpsse).to receive(:send_nacks)
 
-        expect(i2c.read(2, register_address)).to eq [register_value_first, register_value_last]
+        expect(i2c.read(register_address, 2)).to eq [register_value_first, register_value_last]
       end
     end
 
@@ -81,7 +81,7 @@ describe LibMpsse::I2CDevice do
         allow(mpsse).to receive(:write)
         allow(mpsse).to receive(:ack).and_return(LibMpsse::I2CDevice::NACK)
 
-        expect { i2c.read(2, register_address) }.to raise_error LibMpsse::I2CDevice::NoAckReceived
+        expect { i2c.read(register_address, 2) }.to raise_error LibMpsse::I2CDevice::NoAckReceived
       end
     end
   end
