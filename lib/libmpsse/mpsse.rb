@@ -1,27 +1,5 @@
 module LibMpsse
   class Mpsse
-    # Base error of LibMpsse::Mpsse
-    class Error < RuntimeError
-    end
-
-    # When device cannot be opened
-    class CannotOpenError < Error
-    end
-
-    # Error with status code and strings from libmpsse
-    class StatusCodeError < Error
-      attr_reader :status_code
-
-      def initialize(status_code, message)
-        super(message)
-        @status_code = status_code
-      end
-
-      def to_s
-        "#{status_code}: #{super}"
-      end
-    end
-
     attr_reader :context
 
     def initialize(mode:, freq: ClockRates[:four_hundred_khz], endianess: MSB)
@@ -84,6 +62,47 @@ module LibMpsse
     def description
       str_p = LibMpsse::GetDescription(context)
       str_p.read_string
+    end
+
+    # Sets the input/output direction of all pins. For use in BITBANG mode
+    # only.
+    #
+    # @param direction [Integer] Byte indicating input/output direction of
+    #   each bit. 0 is input, and 1 is output.
+    #
+    # @raise [StatusCodeError] if SetDirection does not return
+    #   {LibMpsse::MPSSE_OK}
+    def direction(direction)
+      err = LibMpsse::SetDirection(context, direction)
+      check_libmpsse_error(err)
+    end
+
+    private
+
+    def check_libmpsse_error(err)
+      raise StatusCodeError.new(err, error_string) if err != LibMpsse::MPSSE_OK
+    end
+
+    # Base error of LibMpsse::Mpsse
+    class Error < RuntimeError
+    end
+
+    # When device cannot be opened
+    class CannotOpenError < Error
+    end
+
+    # Error with status code and strings from libmpsse
+    class StatusCodeError < Error
+      attr_reader :status_code
+
+      def initialize(status_code, message)
+        super(message)
+        @status_code = status_code
+      end
+
+      def to_s
+        "#{status_code}: #{super}"
+      end
     end
   end
 end

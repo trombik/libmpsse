@@ -7,6 +7,10 @@ describe LibMpsse::Mpsse do
     { open: 1 }
   end
 
+  before(:each) do
+    allow_any_instance_of(LibMpsse::Mpsse).to receive(:new_context).and_return(context)
+  end
+
   describe '#initialize' do
     context 'when mode is i2c' do
       context 'when device is successfully opened' do
@@ -15,7 +19,6 @@ describe LibMpsse::Mpsse do
         end
 
         it 'does not raise' do
-          allow_any_instance_of(LibMpsse::Mpsse).to receive(:new_context).and_return(context)
           expect { mpsse }.not_to raise_error
         end
       end
@@ -39,6 +42,23 @@ describe LibMpsse::Mpsse do
 
       expect(libmpsse).to receive(:GetDescription).and_return(FFI::MemoryPointer.from_string('My device'))
       expect(mpsse.description).to eq 'My device'
+    end
+  end
+
+  describe '.set_direction' do
+    context 'when SetDirection succeeds' do
+      it 'does not raise' do
+        expect(libmpsse).to receive(:SetDirection).and_return(LibMpsse::MPSSE_OK)
+        expect { mpsse.direction(0xff) }.not_to raise_error
+      end
+    end
+
+    context 'when SetDirection fails' do
+      it 'raises LibMpsse::Mpsse::StatusCodeError' do
+        expect(libmpsse).to receive(:SetDirection).and_return(LibMpsse::MPSSE_FAIL)
+        expect(libmpsse).to receive(:ErrorString).and_return('something failed')
+        expect { mpsse.direction(0xff) }.to raise_error(LibMpsse::Mpsse::StatusCodeError, '-1: something failed')
+      end
     end
   end
 end
