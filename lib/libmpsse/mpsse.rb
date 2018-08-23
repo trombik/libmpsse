@@ -72,7 +72,9 @@ module LibMpsse
     #
     # @raise [StatusCodeError] if SetDirection does not return
     #   {LibMpsse::MPSSE_OK}
+    # @raise [InvalidMode] When mode is not :bitbang
     def direction(direction)
+      raise InvalidMode.new(context[:mode], 'bitbang') unless context[:mode] == :bitbang
       err = LibMpsse::SetDirection(context, direction)
       check_libmpsse_error(err)
     end
@@ -92,6 +94,24 @@ module LibMpsse
       else
         raise ArgumentError, format('invalid mode `%<mode>s`: mode must be either :high or :low', mode: mode)
       end
+    end
+
+    # Sets the input/output value of all pins. For use in BITBANG mode only.
+    #
+    # @param bits [Integer] Byte indicating bit hi/low value of each bit.
+    # @raise [InvalidMode] When mode is not :bitbang
+    def write_pins(bits)
+      raise InvalidMode.new(context[:mode], 'bitbang') unless context[:mode] == :bitbang
+      check_libmpsse_error(LibMpsse::WritePins(context, bits))
+    end
+
+    # Reads the state of the chip's pins. For use in BITBANG mode only.
+    #
+    # @raise [InvalidMode] When mode is not :bitbang
+    # @return [Integer] a byte with the corresponding pin's bits set to 1 or 0.
+    def read_pins
+      raise InvalidMode.new(context[:mode], 'bitbang') unless context[:mode] == :bitbang
+      LibMpsse::ReadPins(context)
     end
 
     private
@@ -124,6 +144,17 @@ module LibMpsse
 
       def to_s
         "#{status_code}: #{super}"
+      end
+    end
+
+    # When a method not designed for the current mode is called
+    class InvalidMode < Error
+      def initialize(mode, valid_mode)
+        message = format(
+          'this method is for %<valid_mode>s only. current mode is %<mode>s',
+          valid_mode: valid_mode, mode: mode
+        )
+        super(message)
       end
     end
   end

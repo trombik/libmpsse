@@ -30,6 +30,8 @@ module LibMpsse
   attach_function :SetDirection, %i[pointer int], :int
   attach_function :PinHigh, %i[pointer int], :int
   attach_function :PinLow, %i[pointer int], :int
+  attach_function :WritePins, %i[pointer int], :int
+  attach_function :ReadPins, %i[pointer], :int
 
   # SPI functions
 
