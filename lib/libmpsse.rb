@@ -22,31 +22,31 @@ module LibMpsse
   attach_function :MPSSE, [Modes, :int, :int], :pointer
   attach_function :Open, [:int, :int, Modes, :int, :int, :int, :string, :string], :pointer
   attach_function :OpenIndex, [:int, :int, Modes, :int, :int, :int, :string, :string, :int], :pointer
-  attach_function :Close, [:pointer], :void
-  attach_function :Start, [:pointer], :int
-  attach_function :Stop, [:pointer], :int
-  attach_function :Tristate, [:pointer], :int
-  attach_function :GetDescription, [:pointer], :pointer
-  attach_function :SetDirection, %i[pointer int], :int
-  attach_function :PinHigh, %i[pointer int], :int
-  attach_function :PinLow, %i[pointer int], :int
-  attach_function :WritePins, %i[pointer int], :int
-  attach_function :ReadPins, %i[pointer], :int
+  attach_function :Close, [Context.by_ref], :void
+  attach_function :Start, [Context.by_ref], :int
+  attach_function :Stop, [Context.by_ref], :int
+  attach_function :Tristate, [Context.by_ref], :int
+  attach_function :GetDescription, [Context.by_ref], :pointer
+  attach_function :SetDirection, [Context.by_ref, :int], :int
+  attach_function :PinHigh, [Context.by_ref, :int], :int
+  attach_function :PinLow, [Context.by_ref, :int], :int
+  attach_function :WritePins, [Context.by_ref, :int], :int
+  attach_function :ReadPins, [Context.by_ref], :int
 
   # SPI functions
 
   # I2C functions
-  attach_function :GetAck, [:pointer], :int
-  attach_function :SetAck, %i[pointer int], :void
-  attach_function :SendAcks, [:pointer], :void
-  attach_function :SendNacks, [:pointer], :void
+  attach_function :GetAck, [Context.by_ref], :int
+  attach_function :SetAck, [Context.by_ref, :int], :void
+  attach_function :SendAcks, [Context.by_ref], :void
+  attach_function :SendNacks, [Context.by_ref], :void
 
-  attach_function :ErrorString, [:pointer], :string
+  attach_function :ErrorString, [Context.by_ref], :string
 
-  attach_function :Write, %i[pointer pointer int], :int
-  attach_function :Read, %i[pointer int], :pointer
-  attach_function :ReadBits, %i[pointer int], :uint8
-  attach_function :Transfer, %i[pointer string int], :string
+  attach_function :Write, [Context.by_ref, :pointer, :int], :int
+  attach_function :Read, [Context.by_ref, :int], :pointer
+  attach_function :ReadBits, [Context.by_ref, :int], :uint8
+  attach_function :Transfer, [Context.by_ref, :string, :int], :string
 
   require 'libmpsse/mpsse'
   require 'libmpsse/i2c_device'
