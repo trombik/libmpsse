@@ -77,6 +77,23 @@ module LibMpsse
       check_libmpsse_error(err)
     end
 
+    # Set a pin to specified state, either high or low.
+    #
+    # @param pin [Integer] Pin number
+    # @param mode [Symbol] `:high` or `:low`
+    # @raise [ArgumentError] if mode is invalid
+    # @raise [StatusCodeError] if libmpsse does not return {LibMpsse::MPSSE_OK}
+    def pin_mode(pin, mode)
+      case mode
+      when :high
+        check_libmpsse_error(LibMpsse::PinHigh(pin))
+      when :low
+        check_libmpsse_error(LibMpsse::PinLow(pin))
+      else
+        raise ArgumentError, format('invalid mode `%<mode>s`: mode must be either :high or :low', mode: mode)
+      end
+    end
+
     private
 
     def check_libmpsse_error(err)
@@ -92,9 +109,14 @@ module LibMpsse
     end
 
     # Error with status code and strings from libmpsse
+    #
     class StatusCodeError < Error
       attr_reader :status_code
 
+      # Creates StatusCodeError.
+      #
+      # @param status_code [Integer] status code returned by libmpsse
+      # @param message [String] error message
       def initialize(status_code, message)
         super(message)
         @status_code = status_code

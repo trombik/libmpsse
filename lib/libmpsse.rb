@@ -28,6 +28,8 @@ module LibMpsse
   attach_function :Tristate, [:pointer], :int
   attach_function :GetDescription, [:pointer], :pointer
   attach_function :SetDirection, %i[pointer int], :int
+  attach_function :PinHigh, %i[pointer int], :int
+  attach_function :PinLow, %i[pointer int], :int
 
   # SPI functions
 

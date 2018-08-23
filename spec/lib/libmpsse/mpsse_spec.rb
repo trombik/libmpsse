@@ -61,4 +61,34 @@ describe LibMpsse::Mpsse do
       end
     end
   end
+
+  describe '.pin_mode' do
+    context 'when a pin is set to high and PinHigh succeeds' do
+      it 'does not raise' do
+        expect(libmpsse).to receive(:PinHigh).and_return(LibMpsse::MPSSE_OK)
+        expect { mpsse.pin_mode(1, :high) }.not_to raise_error
+      end
+    end
+
+    context 'when a pin is set to low and PinLow succeeds' do
+      it 'does not raise' do
+        expect(libmpsse).to receive(:PinLow).and_return(LibMpsse::MPSSE_OK)
+        expect { mpsse.pin_mode(1, :low) }.not_to raise_error
+      end
+    end
+
+    context 'when a pin is set to high and PinHigh failes' do
+      it 'raises LibMpsse::Mpsse::StatusCodeError' do
+        expect(libmpsse).to receive(:PinHigh).and_return(LibMpsse::MPSSE_FAIL)
+        expect(libmpsse).to receive(:ErrorString)
+        expect { mpsse.pin_mode(1, :high) }.to raise_error(LibMpsse::Mpsse::StatusCodeError)
+      end
+    end
+
+    context 'when invalid mode is given' do
+      it 'raises ArgumentError' do
+        expect { mpsse.pin_mode(1, :invalid) }.to raise_error(ArgumentError)
+      end
+    end
+  end
 end
