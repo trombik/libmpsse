@@ -4,7 +4,7 @@ describe LibMpsse::Mpsse do
   let(:libmpsse) { class_double('LibMpsse').as_stubbed_const(transfer_nested_constants: true) }
   let(:mpsse) { described_class.new(mode: :i2c) }
   let(:context) do
-    { open: 1 }
+    { open: 1, mode: :i2c }
   end
 
   before(:each) do
@@ -46,6 +46,9 @@ describe LibMpsse::Mpsse do
   end
 
   describe '.set_direction' do
+    let(:context) do
+      { open: 1, mode: :bitbang }
+    end
     context 'when SetDirection succeeds' do
       it 'does not raise' do
         expect(libmpsse).to receive(:SetDirection).and_return(LibMpsse::MPSSE_OK)
@@ -58,6 +61,16 @@ describe LibMpsse::Mpsse do
         expect(libmpsse).to receive(:SetDirection).and_return(LibMpsse::MPSSE_FAIL)
         expect(libmpsse).to receive(:ErrorString).and_return('something failed')
         expect { mpsse.direction(0xff) }.to raise_error(LibMpsse::Mpsse::StatusCodeError, '-1: something failed')
+      end
+    end
+
+    context 'when mode is not bitbang' do
+      let(:context) do
+        { open: 1, mode: :i2c }
+      end
+
+      it 'raises InvalidMode' do
+        expect { mpsse.direction(0xff) }.to raise_error(LibMpsse::Mpsse::InvalidMode)
       end
     end
   end
@@ -86,8 +99,57 @@ describe LibMpsse::Mpsse do
     end
 
     context 'when invalid mode is given' do
-      it 'raises ArgumentError' do
+      it 'raises InvalidMode' do
         expect { mpsse.pin_mode(1, :invalid) }.to raise_error(ArgumentError)
+      end
+    end
+  end
+
+  describe '.write_pins' do
+    let(:context) do
+      { open: 1, mode: :bitbang }
+    end
+    let(:mpsse) { described_class.new(mode: :bitbang) }
+
+    context 'when set all pins to high' do
+      it 'does not raise' do
+        expect(libmpsse).to receive(:WritePins).and_return(LibMpsse::MPSSE_OK)
+        expect { mpsse.write_pins(0xff) }.not_to raise_error
+      end
+    end
+
+    context 'when mode is not bitbang mode' do
+      let(:context) do
+        { open: 1, mode: :i2c }
+      end
+
+      it 'raises InvalidMode' do
+        expect { mpsse.write_pins(0xff) }.to raise_error(LibMpsse::Mpsse::InvalidMode)
+      end
+    end
+  end
+
+  describe '.read_pins' do
+    let(:mpsse) { described_class.new(mode: :bitbang) }
+    let(:context) do
+      { open: 1, mode: :bitbang }
+    end
+
+    context 'when reads all pins' do
+      it 'does not raise' do
+        expect(libmpsse).to receive(:ReadPins).and_return(0xff).twice
+        expect { mpsse.read_pins }.not_to raise_error
+        expect(mpsse.read_pins).to eq 0xff
+      end
+    end
+
+    context 'when mode is not bitbang' do
+      let(:context) do
+        { open: 1, mode: :i2c }
+      end
+
+      it 'raises InvalidMode' do
+        expect { mpsse.read_pins }.to raise_error(LibMpsse::Mpsse::InvalidMode)
       end
     end
   end
