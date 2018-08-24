@@ -2,13 +2,34 @@ module LibMpsse
   class Mpsse
     attr_reader :context
 
-    def initialize(mode:, freq: ClockRates[:four_hundred_khz], endianess: MSB)
-      @context = new_context(mode, freq, endianess)
+    # Open the device and initialize itself
+    #
+    # @param mode [LibMpsse::Modes] one of operation modes, such as `:i2c`
+    # @param freq [LibMpsse::ClockRates] Clock frequency
+    # @param endianess [Integer] {LibMpsse::MSB} or {LibMpsse::LSB}
+    # @param device [Hash] choose device with specific attributes. some keys
+    #   may be omitted, in which case default values are used.
+    #   * :vid (Integer) vendor ID, default is `0x0403` for FTDI
+    #   * :pid (Integer) product ID, default is  `0x6010` for FT2232
+    #   * :interface ({LibMpsse::Interface}) interface to use,  default is `:iface_any`.
+    #   * :index (Integer) device index, zero for the first device
+    def initialize(mode:, freq: ClockRates[:four_hundred_khz], endianess: MSB, device: {})
+      @context = new_context(mode: mode, freq: freq, endianess: endianess, device: device)
       raise CannotOpenError if (@context[:open]).zero?
     end
 
-    def new_context(mode, freq, endianess)
-      @context = Context.new(LibMpsse::MPSSE(mode, freq, endianess))
+    def new_context(mode:, freq:, endianess:, device:)
+      if device.empty?
+        LibMpsse::MPSSE(mode, freq, endianess)
+      else
+        LibMpsse::OpenIndex(
+          device.key?(:vid) ? device[:vid] : 0x0403,
+          device.key?(:pid) ? device[:pid] : 0x6010,
+          mode, freq, endianess,
+          device.key?(:interface) ? device[:interface] : Interface[:iface_any],
+          nil, nil, device.key?(:index) ? device[:index] : 0
+        )
+      end
     end
 
     def start

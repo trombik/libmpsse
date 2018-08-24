@@ -29,9 +29,19 @@ describe LibMpsse::Mpsse do
         end
 
         it 'raises LibMpsse::Mpsse::CannotOpenError' do
-          allow_any_instance_of(LibMpsse::Mpsse).to receive(:new_context).and_return(context)
           expect { mpsse }.to raise_error(LibMpsse::Mpsse::CannotOpenError)
         end
+      end
+    end
+
+    context 'When `device` argument is given' do
+      let(:device) do
+        { vid: 0x0403, pid: 0x6010, interface: LibMpsse::Interface[:iface_any] }
+      end
+      let(:mpsse) { described_class.new(mode: :i2c, device: device) }
+
+      it 'does not raise' do
+        expect { mpsse }.not_to raise_error
       end
     end
   end
