@@ -36,7 +36,7 @@ module LibMpsse
     #
     # @return [LibMpsse::Mpsse] new [LibMpsse::Mpsse] context
     def new_context
-      Mpsse.new(mode: Modes[:i2c], freq: @freq, endianess: MSB, device: device)
+      Mpsse.new(mode: Modes[:i2c], freq: @freq, endianess: MSB, device: @device)
     end
 
     # Wrap I2c transaction with I2C start and stop
