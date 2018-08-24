@@ -83,12 +83,38 @@ module LibMpsse
       read(register, 1).first
     end
 
+    # Read bits from a 8 bit register.
+    #
+    # @param [Integer] register address
+    # @param [Integer] bit mask to read. must not be zero
+    # @return [Integer] masked register value. the value is right-shifted so
+    #   that it represents the value of masked bits.
+    # @raise [ArgumentError] when mask is zero
+    def read8_bits(register, mask)
+      raise ArgumentError, 'mask must not be zero' if mask.zero?
+      value = read8(register) & mask
+      right_shift_lsb(value, mask)
+    end
+
     # Read two bytes from a 16 bit register
     # @param [Integer] register address
     # @return [Integer] register value
     def read16(register)
       (first, last) = read(register, 2)
       ((first << 8) & 0xff00) | (last & 0xff)
+    end
+
+    # Read bits from a 16 bit register.
+    #
+    # @param [Integer] register address
+    # @param [Integer] bit mask to read. must not be zero
+    # @return [Integer] masked register value. the value is right-shifted so
+    #   that it represents the value of masked bits.
+    # @raise [ArgumentError] when mask is zero
+    def read16_bits(register, mask)
+      raise ArgumentError, 'mask must not be zero' if mask.zero?
+      value = read16(register) & mask
+      right_shift_lsb(value, mask)
     end
 
     # Get an ACK from the slave. Return value is either
@@ -123,6 +149,16 @@ module LibMpsse
       end
       frame = address << 1
       operation == :read ? frame | 0x01 : frame
+    end
+
+    def right_shift_lsb(value, mask)
+      raise ArgumentError, 'mask must not be zero' if mask.zero?
+      return 0 if value.zero?
+      while (mask & 1).zero?
+        value = value >> 1
+        mask = mask >> 1
+      end
+      value
     end
 
     # Base class for all error class for LibMpsse::I2CDevice
