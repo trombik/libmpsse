@@ -15,7 +15,7 @@ module LibMpsse
     #   * :index (Integer) device index, zero for the first device
     def initialize(mode:, freq: ClockRates[:four_hundred_khz], endianess: MSB, device: {})
       @context = new_context(mode: mode, freq: freq, endianess: endianess, device: device)
-      raise CannotOpenError if (@context[:open]).zero?
+      raise CannotOpenError, 'Cannot open device' if (@context[:open]).zero?
     end
 
     def new_context(mode:, freq:, endianess:, device:)
