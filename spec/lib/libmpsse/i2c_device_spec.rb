@@ -115,4 +115,52 @@ describe LibMpsse::I2CDevice do
       end
     end
   end
+
+  describe '.read8_bits' do
+    context 'when register value is 0b11111111 and mask is 0b11110000' do
+      it 'returns 0b1111' do
+        allow(i2c).to receive(:read8).and_return(0xff)
+
+        expect(i2c.read8_bits(register_address, 0b11110000)).to eq 0b1111
+      end
+    end
+
+    context 'when register value is 0b00101111 and mask is 0b11110000' do
+      it 'returns 0b0010' do
+        allow(i2c).to receive(:read8).and_return(0b00101111)
+
+        expect(i2c.read8_bits(register_address, 0b11110000)).to eq 0b0010
+      end
+    end
+
+    context 'when register value is 0b00001111 and mask is 0b11110000' do
+      it 'returns 0' do
+        allow(i2c).to receive(:read8).and_return(0b00001111)
+
+        expect(i2c.read8_bits(register_address, 0b11110000)).to eq 0
+      end
+    end
+
+    context 'when register value is 0 and mask is 0b11110000' do
+      it 'returns 0' do
+        allow(i2c).to receive(:read8).and_return(0)
+
+        expect(i2c.read8_bits(register_address, 0b11110000)).to eq 0
+      end
+    end
+
+    context 'when mask is zero' do
+      it 'raises ArgumentError' do
+        expect { i2c.read8_bits(register_address, 0) }.to raise_error(ArgumentError)
+      end
+    end
+  end
+
+  describe '.read16_bits' do
+    context 'when mask is zero' do
+      it 'raises ArgumentError' do
+        expect { i2c.read16_bits(register_address, 0) }.to raise_error(ArgumentError)
+      end
+    end
+  end
 end
