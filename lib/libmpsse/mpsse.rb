@@ -20,14 +20,14 @@ module LibMpsse
 
     def new_context(mode:, freq:, endianess:, device:)
       if device.empty?
-        LibMpsse::MPSSE(mode, freq, endianess)
+        Context.new(LibMpsse::MPSSE(mode, freq, endianess))
       else
-        LibMpsse::OpenIndex(
-          device.key?(:vid) ? device[:vid] : 0x0403,
-          device.key?(:pid) ? device[:pid] : 0x6010,
-          mode, freq, endianess,
-          device.key?(:interface) ? device[:interface] : Interface[:iface_any],
-          nil, nil, device.key?(:index) ? device[:index] : 0
+        Context.new(
+          LibMpsse::OpenIndex(
+            device.key?(:vid) ? device[:vid] : 0x0403, device.key?(:pid) ? device[:pid] : 0x6010,
+            mode, freq, endianess, device.key?(:interface) ? device[:interface] : Interface[:iface_any],
+            nil, nil, device.key?(:index) ? device[:index] : 0
+          )
         )
       end
     end
