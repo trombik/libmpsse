@@ -69,7 +69,7 @@ describe LibMpsse::Mpsse do
     context 'when SetDirection fails' do
       it 'raises LibMpsse::Mpsse::StatusCodeError' do
         expect(libmpsse).to receive(:SetDirection).and_return(LibMpsse::MPSSE_FAIL)
-        expect(libmpsse).to receive(:ErrorString).and_return('something failed')
+        expect(libmpsse).to receive(:ErrorString).and_return(FFI::MemoryPointer.from_string('something failed'))
         expect { mpsse.direction(0xff) }.to raise_error(LibMpsse::Mpsse::StatusCodeError, '-1: something failed')
       end
     end
@@ -103,7 +103,7 @@ describe LibMpsse::Mpsse do
     context 'when a pin is set to high and PinHigh failes' do
       it 'raises LibMpsse::Mpsse::StatusCodeError' do
         expect(libmpsse).to receive(:PinHigh).and_return(LibMpsse::MPSSE_FAIL)
-        expect(libmpsse).to receive(:ErrorString)
+        expect(mpsse).to receive(:error_string).and_return('failed')
         expect { mpsse.pin_mode(1, :high) }.to raise_error(LibMpsse::Mpsse::StatusCodeError)
       end
     end
@@ -161,6 +161,14 @@ describe LibMpsse::Mpsse do
       it 'raises InvalidMode' do
         expect { mpsse.read_pins }.to raise_error(LibMpsse::Mpsse::InvalidMode)
       end
+    end
+  end
+
+  describe '.version' do
+    it 'returns libmpsse version' do
+      expect(libmpsse).to receive(:Version).and_return(FFI::MemoryPointer.from_string('1.2'))
+
+      expect(mpsse.version).to eq '1.2'
     end
   end
 end

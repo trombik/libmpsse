@@ -34,6 +34,7 @@ module LibMpsse
   attach_function :Stop, [Context.by_ref], :int
   attach_function :Tristate, [Context.by_ref], :int
   attach_function :GetDescription, [Context.by_ref], :pointer
+  attach_function :Version, [:void], :pointer
   attach_function :SetDirection, [Context.by_ref, :int], :int
   attach_function :PinHigh, [Context.by_ref, :int], :int
   attach_function :PinLow, [Context.by_ref, :int], :int
@@ -48,7 +49,7 @@ module LibMpsse
   attach_function :SendAcks, [Context.by_ref], :void
   attach_function :SendNacks, [Context.by_ref], :void
 
-  attach_function :ErrorString, [Context.by_ref], :string
+  attach_function :ErrorString, [Context.by_ref], :pointer
 
   attach_function :Write, [Context.by_ref, :pointer, :int], :int
   attach_function :Read, [Context.by_ref, :int], :pointer

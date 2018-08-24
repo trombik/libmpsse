@@ -76,12 +76,25 @@ module LibMpsse
       LibMpsse::SendAcks(context)
     end
 
+    # Retrieves the last error string from libftdi.
+    #
+    # @return [String]
     def error_string
-      LibMpsse::ErrorString(context)
+      str_p = LibMpsse::ErrorString(context)
+      str_p.read_string
     end
 
+    # Returns the description of the FTDI chip, if any.
+    # @return [String]
     def description
       str_p = LibMpsse::GetDescription(context)
+      str_p.read_string
+    end
+
+    # Returns the libmpsse version number.
+    # @return [String]
+    def version
+      str_p = LibMpsse::Version(nil)
       str_p.read_string
     end
 
