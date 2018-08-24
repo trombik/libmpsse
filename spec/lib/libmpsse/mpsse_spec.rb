@@ -171,4 +171,26 @@ describe LibMpsse::Mpsse do
       expect(mpsse.version).to eq '1.2'
     end
   end
+
+  describe '.start' do
+    context 'when Start() fails' do
+      it 'raises LibMpsse::StatusCodeError' do
+        allow(mpsse).to receive(:error_string).and_return('failed')
+        allow(libmpsse).to receive(:Start).and_return(LibMpsse::MPSSE_FAIL)
+
+        expect { mpsse.start }.to raise_error(LibMpsse::Mpsse::StatusCodeError)
+      end
+    end
+  end
+
+  describe '.stop' do
+    context 'when Stop() fails' do
+      it 'raises LibMpsse::StatusCodeError' do
+        allow(mpsse).to receive(:error_string).and_return('failed')
+        allow(libmpsse).to receive(:Stop).and_return(LibMpsse::MPSSE_FAIL)
+
+        expect { mpsse.stop }.to raise_error(LibMpsse::Mpsse::StatusCodeError)
+      end
+    end
+  end
 end
