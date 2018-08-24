@@ -1,4 +1,5 @@
 module LibMpsse
+  # Common clock rates
   ClockRates = enum(
     :one_hundred_khz,  100_000,
     :four_hundred_khz, 400_000,

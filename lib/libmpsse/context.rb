@@ -1,6 +1,7 @@
 require 'ftdi'
 
 module LibMpsse
+  # libpsse context
   class Context < FFI::ManagedStruct
     layout :description,      :string,
            :ftdi_context,     Ftdi::Context,
@@ -25,6 +26,7 @@ module LibMpsse
            :txrx,             :uint8,
            :tack,             :uint8,
            :rack,             :uint8
+    # a method to auto-release the object when it is out-of-scope
     def self.release(context)
       LibMpsse::Close(context)
     end

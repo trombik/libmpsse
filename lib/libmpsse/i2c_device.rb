@@ -18,7 +18,7 @@ module LibMpsse
     # @return [LibMpsse::Mpsse] MPSSE context
     attr_reader :mpsse
 
-    # Create a [LibMpsse::I2CDevice].
+    # Create a {LibMpsse::I2CDevice}.
     #
     # @param address [Integer] I2C slave address
     # @param freq [LibMpsse::ClockRates] I2C clock frequency
@@ -32,9 +32,9 @@ module LibMpsse
       @mpsse = new_context
     end
 
-    # Create [LibMpsse::Mpsse] context object
+    # Create {LibMpsse::Mpsse} context object
     #
-    # @return [LibMpsse::Mpsse] new [LibMpsse::Mpsse] context
+    # @return [LibMpsse::Mpsse] new {LibMpsse::Mpsse} context
     def new_context
       Mpsse.new(mode: Modes[:i2c], freq: @freq, endianess: MSB, device: @device)
     end
@@ -54,7 +54,7 @@ module LibMpsse
     end
 
     # Read one or more register values from I2C device. ACK from the slave is
-    # always checked, thorws [LibMpsse::NoAckReceived] when expected ACK has
+    # always checked, thorws {LibMpsse::NoAckReceived} when expected ACK has
     # not been received during the transaction. Repeated start is used before
     # reading register values.
     #
@@ -86,7 +86,7 @@ module LibMpsse
     # Read bits from a 8 bit register.
     #
     # @param [Integer] register address
-    # @param [Integer] bit mask to read. must not be zero
+    # @param [Integer] mask bit mask to read. must not be zero
     # @return [Integer] masked register value. the value is right-shifted so
     #   that it represents the value of masked bits.
     # @raise [ArgumentError] when mask is zero
@@ -107,7 +107,7 @@ module LibMpsse
     # Read bits from a 16 bit register.
     #
     # @param [Integer] register address
-    # @param [Integer] bit mask to read. must not be zero
+    # @param [Integer] mask bit mask to read. must not be zero
     # @return [Integer] masked register value. the value is right-shifted so
     #   that it represents the value of masked bits.
     # @raise [ArgumentError] when mask is zero
@@ -118,8 +118,8 @@ module LibMpsse
     end
 
     # Get an ACK from the slave. Return value is either
-    # [LibMpsse::I2CDevice::ACK], or 0, when ack has been received,
-    # [LibMpsse::I2CDevice::NACK], or 1, when not.
+    # {LibMpsse::I2CDevice::ACK}, or 0, when ack has been received,
+    # {LibMpsse::I2CDevice::NACK}, or 1, when not.
     #
     # @return [Integer]
     def ack
@@ -161,7 +161,7 @@ module LibMpsse
       value
     end
 
-    # Base class for all error class for LibMpsse::I2CDevice
+    # Base class for all error class for {LibMpsse::I2CDevice}
     #
     class Error < RuntimeError
     end
