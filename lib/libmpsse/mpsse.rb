@@ -32,12 +32,18 @@ module LibMpsse
       end
     end
 
+    # Send data start condition.
+    #
+    # @raise [StatusCodeError]
     def start
-      LibMpsse::Start(context)
+      check_libmpsse_error(LibMpsse::Start(context))
     end
 
+    # Send data stop condition.
+    #
+    # @raise [StatusCodeError]
     def stop
-      LibMpsse::Stop(context)
+      check_libmpsse_error(LibMpsse::Stop(context))
     end
 
     def close
