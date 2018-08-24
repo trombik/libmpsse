@@ -1,6 +1,7 @@
 require 'ftdi'
 
 module LibMpsse
+  # FTDI interfaces
   Interface = enum(
     :iface_any, Ftdi::Interface[:interface_any],
     :iface_a, Ftdi::Interface[:interface_a],

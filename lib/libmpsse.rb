@@ -2,6 +2,7 @@ require 'ffi'
 require 'libmpsse/version'
 
 module LibMpsse
+  # Name space for LibMpsse
   extend FFI::Library
   ffi_lib ['libmpsse', 'libmpsse.a', 'libmpsse.so']
 
@@ -15,9 +16,14 @@ module LibMpsse
   require 'libmpsse/context'
   require 'libmpsse/interface'
 
+  # libmpsse return value on success
   MPSSE_OK = 0
+  # libmpsse return value on failure
   MPSSE_FAIL = -1
+
+  # MSB first
   MSB = 0x00
+  # LSB first
   LSB = 0x08
 
   attach_function :MPSSE, [Modes, :int, :int], :pointer
