@@ -22,10 +22,13 @@ module LibMpsse
     #
     # @param address [Integer] I2C slave address
     # @param freq [LibMpsse::ClockRates] I2C clock frequency
+    # @param device [Hash] choose device with specific attributes. see
+    #   {LibMpsse::Mpsse#initialize}
     # @return [LibMpsse::I2CDevice] I2CDevice object
-    def initialize(address:, freq: ClockRates[:one_hundred_khz])
+    def initialize(address:, freq: ClockRates[:one_hundred_khz], device: {})
       @address = address
       @freq = freq
+      @device = device
       @mpsse = new_context
     end
 
@@ -33,7 +36,7 @@ module LibMpsse
     #
     # @return [LibMpsse::Mpsse] new [LibMpsse::Mpsse] context
     def new_context
-      Mpsse.new(mode: Modes[:i2c], freq: @freq, endianess: MSB)
+      Mpsse.new(mode: Modes[:i2c], freq: @freq, endianess: MSB, device: device)
     end
 
     # Wrap I2c transaction with I2C start and stop

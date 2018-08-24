@@ -13,6 +13,7 @@ module LibMpsse
   require 'libmpsse/modes'
   require 'libmpsse/clock_rates'
   require 'libmpsse/context'
+  require 'libmpsse/interface'
 
   MPSSE_OK = 0
   MPSSE_FAIL = -1
