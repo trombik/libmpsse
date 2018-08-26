@@ -45,17 +45,21 @@ describe LibMpsse::I2CDevice do
   describe '.ping' do
     context 'when no ack from i2c device' do
       it 'returns false' do
-        allow(mpsse).to receive(:write).with([address_write])
+        allow(mpsse).to receive(:write)
         allow(mpsse).to receive(:ack).and_return(1)
+
         expect(i2c.ping).to eq false
+        expect(mpsse).to have_received(:write).with([address_write]).once
       end
     end
 
     context 'when ack from i2c device' do
       it 'returns true' do
-        allow(mpsse).to receive(:write).with([address_write])
+        allow(mpsse).to receive(:write)
         allow(mpsse).to receive(:ack).and_return(0)
+
         expect(i2c.ping).to eq true
+        expect(mpsse).to have_received(:write).with([address_write]).once
       end
     end
   end
