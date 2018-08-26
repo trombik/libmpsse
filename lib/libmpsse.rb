@@ -40,6 +40,7 @@ module LibMpsse
   attach_function :PinLow, [Context.by_ref, :int], :int
   attach_function :WritePins, [Context.by_ref, :int], :int
   attach_function :ReadPins, [Context.by_ref], :int
+  attach_function :PinState, [Context.by_ref, :int, :int], :int
 
   # SPI functions
 

@@ -154,6 +154,17 @@ module LibMpsse
       LibMpsse::ReadPins(context)
     end
 
+    # Checks if a specific pin is high or low. For use in BITBANG mode only if
+    # state is not given.
+    #
+    # @param pin [GpioPins] pin number
+    # @param state [Integer] pin state. when state is not given, or is nil,
+    #   actual pin state is read by ReadPins().
+    # @return [Integer] Returns a 1 if the pin is high, 0 if the pin is low.
+    def pin_state(pin, state = nil)
+      LibMpsse::PinState(context, pin, state.nil? ? -1 : state)
+    end
+
     private
 
     def check_libmpsse_error(err)
