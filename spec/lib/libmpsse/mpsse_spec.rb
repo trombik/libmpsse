@@ -193,4 +193,14 @@ describe LibMpsse::Mpsse do
       end
     end
   end
+
+  describe '.pin_state' do
+    context 'when GPIOH7 is high' do
+      it 'returns 1' do
+        allow(libmpsse).to receive(:PinState).with(any_args, 7, -1).and_return(1)
+
+        expect(mpsse.pin_state(7)).to eq 1
+      end
+    end
+  end
 end
