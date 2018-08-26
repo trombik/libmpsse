@@ -47,44 +47,62 @@ module LibMpsse
       check_libmpsse_error(LibMpsse::Stop(context))
     end
 
+    # Close the device.
     def close
       LibMpsse::Close(context)
     end
 
+    # Read array of uint8_t from bus.
+    #
+    # @param size [Integer] size to read
+    # @return [Array<Integer>] array of bytes
     def read(size)
       data_ptr = LibMpsse::Read(context, size)
       data_ptr.read_array_of_type(FFI::TYPE_UINT8, :read_uint8, size)
     end
 
+    # Performs a bit-wise read of up to 8 bits.
+    #
+    # @param size [Integer] number of bits to read
+    # @retrun an 8-bit byte containing the read bits
     def read_bits(size = 8)
       LibMpsse::ReadBits(context, size)
     end
 
+    # Send data out via the selected serial protocol.
+    #
+    # @raise [StatusCodeError]
     def write(data)
       data = data.pack('C*')
       data_ptr = FFI::MemoryPointer.new(:uint8, data.bytesize)
       data_ptr.put_bytes(0, data)
-      LibMpsse::Write(context, data_ptr, data.bytesize)
+      check_libmpsse_error(LibMpsse::Write(context, data_ptr, data.bytesize))
     end
 
+    # Get ACK from bus
+    #
+    # @return [Integer] either an ACK (0) or a NACK (1).
     def ack
       LibMpsse::GetAck(context)
     end
 
+    # Sets the transmitted ACK bit.
+    # @param ack_type [Integer] 0 to send ACKs, 1 to send NACKs.
     def ack=(ack_type)
       LibMpsse::SetAck(context, ack_type)
     end
 
+    # Causes libmpsse to send NACKs after each read byte in I2C mode.
     def send_nacks
       LibMpsse::SendNacks(context)
     end
 
+    # Causes libmpsse to send ACKs after each read byte in I2C mode.
     def send_acks
       LibMpsse::SendAcks(context)
     end
 
     # Retrieves the last error string from libftdi.
-    #
     # @return [String]
     def error_string
       str_p = LibMpsse::ErrorString(context)

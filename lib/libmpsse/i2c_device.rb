@@ -1,10 +1,8 @@
 module LibMpsse
   # Namespace for libmpsse
   class I2CDevice
-    # Abstract class of I2C device.
-    #
-    # @abstract A class that represents I2C device. Provides methods to talk
-    # to I2C slave device.
+    # Abstract class of I2C device. A class that represents I2C device.
+    # Provides methods to talk to I2C slave device.
 
     # Constant that represents ACK has been received
     ACK = 0
@@ -97,6 +95,7 @@ module LibMpsse
     end
 
     # Read two bytes from a 16 bit register
+    #
     # @param [Integer] register address
     # @return [Integer] register value
     def read16(register)
@@ -127,7 +126,7 @@ module LibMpsse
     end
 
     # Ping the I2C slave by writing address of the slave, and confirming the
-    # slave returns ACK back. Does not raise when ACK is not received.
+    # slave returns ACK back.  Does not raise when ACK is not received.
     #
     # @return [Boolean] `true` if the device has responded, `false` on
     # failure.
