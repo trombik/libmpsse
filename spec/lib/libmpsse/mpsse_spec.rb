@@ -203,4 +203,37 @@ describe LibMpsse::Mpsse do
       end
     end
   end
+
+  describe '.loopback' do
+    context 'when enabled without error' do
+      it 'does not raise' do
+        allow(libmpsse).to receive(:SetLoopback).and_return(LibMpsse::MPSSE_OK)
+
+        expect { mpsse.loopback(:enable) }.not_to raise_error
+      end
+    end
+
+    context 'when disabled without error' do
+      it 'does not raise' do
+        allow(libmpsse).to receive(:SetLoopback).and_return(LibMpsse::MPSSE_OK)
+
+        expect { mpsse.loopback(:disable) }.not_to raise_error
+      end
+    end
+
+    context 'when SetLoopback() fails' do
+      it 'raises StatusCodeError' do
+        allow(libmpsse).to receive(:SetLoopback).and_return(LibMpsse::MPSSE_FAIL)
+        allow(libmpsse).to receive(:ErrorString).and_return(FFI::MemoryPointer.from_string('failed'))
+
+        expect { mpsse.loopback(:enable) }.to raise_error(LibMpsse::Mpsse::StatusCodeError)
+      end
+    end
+
+    context 'when argument is invalid' do
+      it 'raises ArgumentError' do
+        expect { mpsse.loopback(:invalid) }.to raise_error(ArgumentError)
+      end
+    end
+  end
 end

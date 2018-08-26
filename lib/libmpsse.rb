@@ -35,6 +35,7 @@ module LibMpsse
   attach_function :Tristate, [Context.by_ref], :int
   attach_function :GetDescription, [Context.by_ref], :pointer
   attach_function :Version, [:void], :pointer
+  attach_function :SetLoopback, [Context.by_ref, :int], :int
   attach_function :SetDirection, [Context.by_ref, :int], :int
   attach_function :PinHigh, [Context.by_ref, :int], :int
   attach_function :PinLow, [Context.by_ref, :int], :int
@@ -58,5 +59,6 @@ module LibMpsse
   attach_function :Transfer, [Context.by_ref, :string, :int], :string
 
   require 'libmpsse/mpsse'
+  require 'libmpsse/mpsse/error.rb'
   require 'libmpsse/i2c_device'
 end

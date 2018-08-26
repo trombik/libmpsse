@@ -166,48 +166,19 @@ module LibMpsse
       LibMpsse::PinState(context, pin, state.nil? ? -1 : state)
     end
 
+    # Enable / disable internal loopback.
+    # @param mode [Synbol] either `:enable` or `:disable`
+    # @raise [StatusCodeError] when SetLoopback() failed
+    # @raise [ArgumentError] when invalid argument was given
+    def loopback(mode)
+      raise ArgumentError, 'mode must be :enable or :disable' unless %i[enable disable].include? mode
+      check_libmpsse_error(LibMpsse::SetLoopback(context, mode == :enable ? 1 : 0))
+    end
+
     private
 
     def check_libmpsse_error(err)
       raise StatusCodeError.new(err, error_string) if err != LibMpsse::MPSSE_OK
-    end
-
-    # Base error of LibMpsse::Mpsse
-    class Error < RuntimeError
-    end
-
-    # When device cannot be opened
-    class CannotOpenError < Error
-    end
-
-    # Error with status code and strings from libmpsse
-    #
-    class StatusCodeError < Error
-      attr_reader :status_code
-
-      # Creates StatusCodeError.
-      #
-      # @param status_code [Integer] status code returned by libmpsse
-      # @param message [String] error message
-      def initialize(status_code, message)
-        super(message)
-        @status_code = status_code
-      end
-
-      def to_s
-        "#{status_code}: #{super}"
-      end
-    end
-
-    # When a method not designed for the current mode is called
-    class InvalidMode < Error
-      def initialize(mode, valid_mode)
-        message = format(
-          'this method is for %<valid_mode>s only. current mode is %<mode>s',
-          valid_mode: valid_mode, mode: mode
-        )
-        super(message)
-      end
     end
   end
 end
