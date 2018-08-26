@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe LibMpsse::Mpsse do
   let(:libmpsse) { class_double('LibMpsse').as_stubbed_const(transfer_nested_constants: true) }
-  let(:mpsse) { described_class.new(mode: :i2c) }
+  let(:mpsse) { described_class.new(mode: LibMpsse::Modes[:i2c]) }
   let(:context) do
-    { open: 1, mode: :i2c }
+    { open: 1, mode: LibMpsse::Modes[:i2c] }
   end
 
   before(:each) do
@@ -38,7 +38,7 @@ describe LibMpsse::Mpsse do
       let(:device) do
         { vid: 0x0403, pid: 0x6010, interface: LibMpsse::Interface[:iface_any] }
       end
-      let(:mpsse) { described_class.new(mode: :i2c, device: device) }
+      let(:mpsse) { described_class.new(mode: LibMpsse::Modes[:i2c], device: device) }
 
       it 'does not raise' do
         expect { mpsse }.not_to raise_error
@@ -57,7 +57,7 @@ describe LibMpsse::Mpsse do
 
   describe '.set_direction' do
     let(:context) do
-      { open: 1, mode: :bitbang }
+      { open: 1, mode: LibMpsse::Modes[:bitbang] }
     end
     context 'when SetDirection succeeds' do
       it 'does not raise' do
@@ -76,7 +76,7 @@ describe LibMpsse::Mpsse do
 
     context 'when mode is not bitbang' do
       let(:context) do
-        { open: 1, mode: :i2c }
+        { open: 1, mode: LibMpsse::Modes[:i2c] }
       end
 
       it 'raises InvalidMode' do
@@ -117,9 +117,9 @@ describe LibMpsse::Mpsse do
 
   describe '.write_pins' do
     let(:context) do
-      { open: 1, mode: :bitbang }
+      { open: 1, mode: LibMpsse::Modes[:bitbang] }
     end
-    let(:mpsse) { described_class.new(mode: :bitbang) }
+    let(:mpsse) { described_class.new(mode: LibMpsse::Modes[:bitbang]) }
 
     context 'when set all pins to high' do
       it 'does not raise' do
@@ -130,7 +130,7 @@ describe LibMpsse::Mpsse do
 
     context 'when mode is not bitbang mode' do
       let(:context) do
-        { open: 1, mode: :i2c }
+        { open: 1, mode: LibMpsse::Modes[:i2c] }
       end
 
       it 'raises InvalidMode' do
@@ -140,9 +140,9 @@ describe LibMpsse::Mpsse do
   end
 
   describe '.read_pins' do
-    let(:mpsse) { described_class.new(mode: :bitbang) }
+    let(:mpsse) { described_class.new(mode: LibMpsse::Modes[:bitbang]) }
     let(:context) do
-      { open: 1, mode: :bitbang }
+      { open: 1, mode: LibMpsse::Modes[:bitbang] }
     end
 
     context 'when reads all pins' do
@@ -155,7 +155,7 @@ describe LibMpsse::Mpsse do
 
     context 'when mode is not bitbang' do
       let(:context) do
-        { open: 1, mode: :i2c }
+        { open: 1, mode: LibMpsse::Modes[:i2c] }
       end
 
       it 'raises InvalidMode' do

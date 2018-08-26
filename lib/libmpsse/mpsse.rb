@@ -4,7 +4,8 @@ module LibMpsse
 
     # Open the device and initialize itself
     #
-    # @param mode [LibMpsse::Modes] one of operation modes, such as `:i2c`
+    # @param mode [LibMpsse::Modes] one of operation modes, one of
+    #   {LibMpsse::Modes}
     # @param freq [LibMpsse::ClockRates] Clock frequency
     # @param endianess [Integer] {LibMpsse::MSB} or {LibMpsse::LSB}
     # @param device [Hash] choose device with specific attributes. some keys
@@ -112,9 +113,9 @@ module LibMpsse
     #
     # @raise [StatusCodeError] if SetDirection does not return
     #   {LibMpsse::MPSSE_OK}
-    # @raise [InvalidMode] When mode is not :bitbang
+    # @raise [InvalidMode] When mode is not LibMpsse::Modes[:bitbang]
     def direction(direction)
-      raise InvalidMode.new(context[:mode], 'bitbang') unless context[:mode] == :bitbang
+      raise InvalidMode.new(context[:mode], 'bitbang') unless context[:mode] == LibMpsse::Modes[:bitbang]
       err = LibMpsse::SetDirection(context, direction)
       check_libmpsse_error(err)
     end
@@ -139,18 +140,18 @@ module LibMpsse
     # Sets the input/output value of all pins. For use in BITBANG mode only.
     #
     # @param bits [Integer] Byte indicating bit hi/low value of each bit.
-    # @raise [InvalidMode] When mode is not :bitbang
+    # @raise [InvalidMode] When mode is not LibMpsse::Modes[:bitbang]
     def write_pins(bits)
-      raise InvalidMode.new(context[:mode], 'bitbang') unless context[:mode] == :bitbang
+      raise InvalidMode.new(context[:mode], 'bitbang') unless context[:mode] == LibMpsse::Modes[:bitbang]
       check_libmpsse_error(LibMpsse::WritePins(context, bits))
     end
 
     # Reads the state of the chip's pins. For use in BITBANG mode only.
     #
-    # @raise [InvalidMode] When mode is not :bitbang
+    # @raise [InvalidMode] When mode is not LibMpsse::Modes[:bitbang]
     # @return [Integer] a byte with the corresponding pin's bits set to 1 or 0.
     def read_pins
-      raise InvalidMode.new(context[:mode], 'bitbang') unless context[:mode] == :bitbang
+      raise InvalidMode.new(context[:mode], 'bitbang') unless context[:mode] == LibMpsse::Modes[:bitbang]
       LibMpsse::ReadPins(context)
     end
 
