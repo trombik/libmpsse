@@ -5,7 +5,7 @@ describe LibMpsse::I2CDevice do
   let(:address_read) { (address << 1 | 1) }
   let(:address_write) { address << 1 }
   let(:i2c) { described_class.new(address: address) }
-  let(:mpsse) { instance_double('mpsse') }
+  let(:mpsse) { spy('mpsse') }
   let(:register_address) { 0x01 }
   let(:register_value_first) { 0xbe }
   let(:register_value_last) { 0xfe }
@@ -63,8 +63,7 @@ describe LibMpsse::I2CDevice do
   describe '.read' do
     context 'when slave responds to read request to a 16 bit register without error' do
       it 'returns register value as an array' do
-        allow(mpsse).to receive(:write).with([address_write, register_address]).ordered
-        allow(mpsse).to receive(:write).with([address_read]).ordered
+        allow(mpsse).to receive(:write)
         allow(mpsse).to receive(:ack).and_return(LibMpsse::I2CDevice::ACK)
         allow(mpsse).to receive(:read).and_return(
           [register_value_first],
@@ -73,6 +72,12 @@ describe LibMpsse::I2CDevice do
         allow(mpsse).to receive(:send_nacks)
 
         expect(i2c.read(register_address, 2)).to eq [register_value_first, register_value_last]
+        expect(mpsse).to have_received(:write).with([address_write, register_address]).once.ordered
+        expect(mpsse).to have_received(:write).with([address_read]).once.ordered
+        expect(mpsse).to have_received(:send_nacks).once.ordered
+        expect(mpsse).to have_received(:stop).ordered
+        expect(mpsse).to have_received(:start).twice
+        expect(mpsse).to have_received(:ack).twice
       end
     end
 
@@ -104,7 +109,6 @@ describe LibMpsse::I2CDevice do
       it 'returns 16 bit value of the register value' do
         allow(mpsse).to receive(:write)
         allow(mpsse).to receive(:ack).and_return(LibMpsse::I2CDevice::ACK)
-        allow(mpsse).to receive(:write)
         allow(mpsse).to receive(:read).and_return(
           [register_value_first],
           [register_value_last]
