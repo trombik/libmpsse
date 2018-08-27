@@ -28,7 +28,7 @@ module LibMpsse
     end
 
     # When a method not designed for the current mode is called
-    class InvalidMode < Error
+    class InvalidModeError < Error
       def initialize(mode, valid_mode)
         message = format(
           'this method is for %<valid_mode>s only. current mode is %<mode>s',

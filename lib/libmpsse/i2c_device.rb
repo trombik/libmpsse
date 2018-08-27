@@ -58,7 +58,7 @@ module LibMpsse
     end
 
     # Read one or more register values from I2C device. ACK from the slave is
-    # always checked, thorws {LibMpsse::NoAckReceived} when expected ACK has
+    # always checked, thorws {LibMpsse::NoAckReceivedError} when expected ACK has
     # not been received during the transaction. Repeated start is used before
     # reading register values. if repeated start is not requested upon object
     # initialization, end the transaction and start new transaction before
@@ -142,9 +142,9 @@ module LibMpsse
 
     # Ensure the device sends ACK back.
     #
-    # @raise [NoAckReceived] when the device does not send ACK back
+    # @raise [NoAckReceivedError] when the device does not send ACK back
     def ensure_ack
-      raise NoAckReceived if @mpsse.ack != ACK
+      raise NoAckReceivedError if @mpsse.ack != ACK
     end
 
     # Ping the I2C slave by writing address of the slave, and confirming the
@@ -189,7 +189,7 @@ module LibMpsse
 
     # Error class when slave does not send ACK back. Indicates the slave I2C
     # device did not send ACK back to master during I2C transaction.
-    class NoAckReceived < Error
+    class NoAckReceivedError < Error
       def to_s
         'no ack from slave'
       end
