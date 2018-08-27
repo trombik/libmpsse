@@ -102,11 +102,11 @@ describe LibMpsse::I2CDevice do
     end
 
     context 'when slave does not send ACK back' do
-      it 'raises LibMpsse::I2CDevice::NoAckReceived' do
+      it 'raises LibMpsse::I2CDevice::NoAckReceivedError' do
         allow(mpsse).to receive(:write)
         allow(mpsse).to receive(:ack).and_return(LibMpsse::I2CDevice::NACK)
 
-        expect { i2c.read(register_address, 2) }.to raise_error LibMpsse::I2CDevice::NoAckReceived
+        expect { i2c.read(register_address, 2) }.to raise_error LibMpsse::I2CDevice::NoAckReceivedError
       end
     end
   end

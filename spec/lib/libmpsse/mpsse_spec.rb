@@ -79,8 +79,8 @@ describe LibMpsse::Mpsse do
         { open: 1, mode: LibMpsse::Modes[:i2c] }
       end
 
-      it 'raises InvalidMode' do
-        expect { mpsse.direction(0xff) }.to raise_error(LibMpsse::Mpsse::InvalidMode)
+      it 'raises InvalidModeError' do
+        expect { mpsse.direction(0xff) }.to raise_error(LibMpsse::Mpsse::InvalidModeError)
       end
     end
   end
@@ -109,7 +109,7 @@ describe LibMpsse::Mpsse do
     end
 
     context 'when invalid mode is given' do
-      it 'raises InvalidMode' do
+      it 'raises InvalidModeError' do
         expect { mpsse.pin_mode(1, :invalid) }.to raise_error(ArgumentError)
       end
     end
@@ -133,8 +133,8 @@ describe LibMpsse::Mpsse do
         { open: 1, mode: LibMpsse::Modes[:i2c] }
       end
 
-      it 'raises InvalidMode' do
-        expect { mpsse.write_pins(0xff) }.to raise_error(LibMpsse::Mpsse::InvalidMode)
+      it 'raises InvalidModeError' do
+        expect { mpsse.write_pins(0xff) }.to raise_error(LibMpsse::Mpsse::InvalidModeError)
       end
     end
   end
@@ -158,8 +158,8 @@ describe LibMpsse::Mpsse do
         { open: 1, mode: LibMpsse::Modes[:i2c] }
       end
 
-      it 'raises InvalidMode' do
-        expect { mpsse.read_pins }.to raise_error(LibMpsse::Mpsse::InvalidMode)
+      it 'raises InvalidModeError' do
+        expect { mpsse.read_pins }.to raise_error(LibMpsse::Mpsse::InvalidModeError)
       end
     end
   end
