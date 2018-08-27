@@ -84,6 +84,22 @@ describe LibMpsse::I2CDevice do
         expect(mpsse).to have_received(:ack).twice
       end
     end
+    context 'when with_repeated_start is false' do
+      let(:i2c) { described_class.new(address: address, device: { with_repeated_start: false }) }
+
+      it 'sends stop twice' do
+        allow(mpsse).to receive(:write)
+        allow(mpsse).to receive(:ack).and_return(LibMpsse::I2CDevice::ACK)
+        allow(mpsse).to receive(:read).and_return(
+          [register_value_first],
+          [register_value_last]
+        )
+        allow(mpsse).to receive(:send_nacks)
+
+        expect(i2c.read(register_address, 2)).to eq [register_value_first, register_value_last]
+        expect(mpsse).to have_received(:stop).twice
+      end
+    end
 
     context 'when slave does not send ACK back' do
       it 'raises LibMpsse::I2CDevice::NoAckReceived' do
