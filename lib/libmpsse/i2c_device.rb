@@ -21,12 +21,18 @@ module LibMpsse
     # @param address [Integer] I2C slave address
     # @param freq [LibMpsse::ClockRates] I2C clock frequency
     # @param device [Hash] choose device with specific attributes. see
-    #   {LibMpsse::Mpsse#initialize}
+    #   device parameter of {LibMpsse::Mpsse#initialize}. Additionally, the
+    #   following attributes are supported:
+    #   * :with_repeated_start (Bool) if true, use repeated start condition
+    #     during I2C read transaction. if false read operation will be performed
+    #     in two I2C transaction. set this to false if the device does not
+    #     support repeated start. default is true.
     # @return [LibMpsse::I2CDevice] I2CDevice object
     def initialize(address:, freq: ClockRates[:one_hundred_khz], device: {})
       @address = address
       @freq = freq
       @device = device
+      @repeated_start_required = device.key?(:with_repeated_start) ? device[:with_repeated_start] : true
       @mpsse = new_context
     end
 
@@ -54,7 +60,9 @@ module LibMpsse
     # Read one or more register values from I2C device. ACK from the slave is
     # always checked, thorws {LibMpsse::NoAckReceived} when expected ACK has
     # not been received during the transaction. Repeated start is used before
-    # reading register values.
+    # reading register values. if repeated start is not requested upon object
+    # initialization, end the transaction and start new transaction before
+    # reading values.
     #
     # @param [Integer] register address
     # @param [Integer] size in byte to read
@@ -63,14 +71,21 @@ module LibMpsse
       transaction do
         data = []
         @mpsse.write([address_frame(:write), register])
-        raise NoAckReceived if @mpsse.ack != ACK
-        @mpsse.start
+        ensure_ack
+        repeated_start
         @mpsse.write([address_frame(:read)])
-        raise NoAckReceived if @mpsse.ack != ACK
+        ensure_ack
         data = @mpsse.read(size - 1) if size > 1
         @mpsse.send_nacks
         data << @mpsse.read(1).first
       end
+    end
+
+    # Send repeated start, or start new I2C transaction if disabling repeated
+    # start is requested upon object initialization.
+    def repeated_start
+      @mpsse.stop unless @repeated_start_required
+      @mpsse.start
     end
 
     # Read a byte from a 8 bit register
@@ -123,6 +138,13 @@ module LibMpsse
     # @return [Integer]
     def ack
       @mpsse.ack
+    end
+
+    # Ensure the device sends ACK back.
+    #
+    # @raise [NoAckReceived] when the device does not send ACK back
+    def ensure_ack
+      raise NoAckReceived if @mpsse.ack != ACK
     end
 
     # Ping the I2C slave by writing address of the slave, and confirming the
