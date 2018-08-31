@@ -5,7 +5,7 @@ require 'libmpsse/version'
 Gem::Specification.new do |spec|
   spec.name          = 'libmpsse'
   spec.version       = LibMpsse::VERSION
-  spec.authors       = ['Stafford Brunk']
+  spec.authors       = ['Stafford Brunk', 'Tomoyuki Sakurai']
   spec.email         = ['stafford.brunk@gmail.com']
 
   spec.summary       = 'FFI wrapper around libmpsse'
