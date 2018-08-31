@@ -71,6 +71,7 @@ module LibMpsse
 
     # Send data out via the selected serial protocol.
     #
+    # @param data [Array<Integer>] data to write
     # @raise [StatusCodeError]
     def write(data)
       data = data.pack('C*')

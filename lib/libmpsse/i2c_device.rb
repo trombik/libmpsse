@@ -51,9 +51,20 @@ module LibMpsse
       @mpsse.stop
     end
 
+    # Write bytes of data to the device
+    #
+    # @param register [Integer] register address
+    # @param value [Array<Integer>, Integer] a value, or array of values, to
+    #   write to the bus
     def write(register, value)
       transaction do
-        @mpsse.write([address_frame(:write), register, value & 0xFF])
+        data = [address_frame(:write), register]
+        if value.is_a?(Array)
+          data += value
+        else
+          data << value
+        end
+        @mpsse.write(data)
       end
     end
 
