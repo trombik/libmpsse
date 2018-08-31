@@ -187,4 +187,35 @@ describe LibMpsse::I2CDevice do
       end
     end
   end
+
+  describe '.write' do
+    context 'when writing a value' do
+      it 'does not raise' do
+        allow(mpsse).to receive(:write)
+        expect { i2c.write(0x01, 'foobar') }.not_to raise_error
+      end
+    end
+
+    context 'when mpsse raises' do
+      it 'raises StatusCodeError' do
+        allow(mpsse).to receive(:write).and_raise(LibMpsse::Mpsse::StatusCodeError.new(-1, 'failed'))
+
+        expect { i2c.write(0x01, 'foobar') }.to raise_error(LibMpsse::Mpsse::StatusCodeError)
+      end
+    end
+
+    context 'when given a single value' do
+      it 'appends the value to data frame' do
+        i2c.write(register_address, 0xdeadbeef)
+        expect(mpsse).to have_received(:write).with([address_write, register_address, 0xdeadbeef])
+      end
+    end
+
+    context 'when given an array' do
+      it 'cancates the array to data frame' do
+        i2c.write(register_address, [0xdead, 0xbeef])
+        expect(mpsse).to have_received(:write).with([address_write, register_address, 0xdead, 0xbeef])
+      end
+    end
+  end
 end
