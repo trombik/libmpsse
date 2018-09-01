@@ -69,6 +69,7 @@ module LibMpsse
   require 'libmpsse/mpsse/error.rb'
   require 'libmpsse/serial_protocol'
   require 'libmpsse/spi'
+  require 'libmpsse/i2c'
   require 'libmpsse/i2c_device'
   require 'libmpsse/spi_device'
 end
