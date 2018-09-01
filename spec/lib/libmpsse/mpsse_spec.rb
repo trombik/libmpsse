@@ -236,4 +236,12 @@ describe LibMpsse::Mpsse do
       end
     end
   end
+
+  describe '.cs_idle' do
+    context 'when state is invalid' do
+      it 'raises ArgumentError' do
+        expect { mpsse.cs_idle(:foo) }.to raise_error(ArgumentError)
+      end
+    end
+  end
 end

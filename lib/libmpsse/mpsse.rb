@@ -194,6 +194,15 @@ module LibMpsse
       check_libmpsse_error(LibMpsse::SetLoopback(context, mode == :enable ? 1 : 0))
     end
 
+    # Sets the idle state of the chip select pin. CS idles high by default.
+    #
+    # @param state [:high, :low] desired idle state
+    # @raise [ArgumentError] when state is not ;high or :low
+    def cs_idle(state)
+      raise ArgumentError, 'state must be `:high` or `:low`' unless %i[high low].include? state
+      LibMpsse::SetCSIdle(context, state == :high ? 1 : 0)
+    end
+
     private
 
     def check_libmpsse_error(err)
