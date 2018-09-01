@@ -1,4 +1,5 @@
 module LibMpsse
+  # Common methods for serial protocol
   module SerialProtocol
     # Wrap transaction with `start` and `stop`
     def transaction

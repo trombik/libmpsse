@@ -1,8 +1,8 @@
 require 'ffi'
 require 'libmpsse/version'
 
+# Name space for LibMpsse
 module LibMpsse
-  # Name space for LibMpsse
   extend FFI::Library
   ffi_lib ['libmpsse', 'libmpsse.a', 'libmpsse.so']
 
