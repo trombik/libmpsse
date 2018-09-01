@@ -102,11 +102,11 @@ describe LibMpsse::I2CDevice do
     end
 
     context 'when slave does not send ACK back' do
-      it 'raises LibMpsse::I2CDevice::NoAckReceivedError' do
+      it 'raises LibMpsse::I2C::NoAckReceivedError' do
         allow(mpsse).to receive(:write)
-        allow(mpsse).to receive(:ack).and_return(LibMpsse::I2CDevice::NACK)
+        allow(mpsse).to receive(:ack).and_return(LibMpsse::I2C::NACK)
 
-        expect { i2c.read(register_address, 2) }.to raise_error LibMpsse::I2CDevice::NoAckReceivedError
+        expect { i2c.read(register_address, 2) }.to raise_error LibMpsse::I2C::NoAckReceivedError
       end
     end
   end
@@ -115,7 +115,7 @@ describe LibMpsse::I2CDevice do
     context 'when slave responds to read request to a 8 bit register without error' do
       it 'returns a byte of the register value' do
         allow(mpsse).to receive(:write)
-        allow(mpsse).to receive(:ack).and_return(LibMpsse::I2CDevice::ACK)
+        allow(mpsse).to receive(:ack).and_return(LibMpsse::I2C::ACK)
         allow(mpsse).to receive(:read).and_return([register_value_first])
         allow(mpsse).to receive(:send_nacks)
 
@@ -128,7 +128,7 @@ describe LibMpsse::I2CDevice do
     context 'when slave responds to read request to a 16 bit register without error' do
       it 'returns 16 bit value of the register value' do
         allow(mpsse).to receive(:write)
-        allow(mpsse).to receive(:ack).and_return(LibMpsse::I2CDevice::ACK)
+        allow(mpsse).to receive(:ack).and_return(LibMpsse::I2C::ACK)
         allow(mpsse).to receive(:read).and_return(
           [register_value_first],
           [register_value_last]
