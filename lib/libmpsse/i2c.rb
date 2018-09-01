@@ -1,4 +1,5 @@
 module LibMpsse
+  # A module for I2C-spicific methods
   module I2C
     # Constant that represents ACK has been received
     ACK = 0

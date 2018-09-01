@@ -1,4 +1,5 @@
 module LibMpsse
+  # SPI protocol-specific methods for SPIDevice
   module SPI
     # write array of data to SPI bus
     #
