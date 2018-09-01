@@ -42,6 +42,13 @@ module LibMpsse
   attach_function :WritePins, [Context.by_ref, :int], :int
   attach_function :ReadPins, [Context.by_ref], :int
   attach_function :PinState, [Context.by_ref, :int, :int], :int
+  attach_function :SetMode, [Context.by_ref, :int], :int
+  attach_function :SetCSIdle, [Context.by_ref, :int], :void
+  attach_function :FastWrite, [Context.by_ref, :string, :string, :int], :int
+  attach_function :FastRead, [Context.by_ref, :string, :int], :int
+  attach_function :FastTransfer, [Context.by_ref, :string, :string, :int], :int
+  attach_function :SetClock, [Context.by_ref, :uint32], :int
+  attach_function :GetClock, [Context.by_ref], :int
 
   # SPI functions
 
@@ -60,5 +67,8 @@ module LibMpsse
 
   require 'libmpsse/mpsse'
   require 'libmpsse/mpsse/error.rb'
+  require 'libmpsse/serial_protocol'
+  require 'libmpsse/spi'
   require 'libmpsse/i2c_device'
+  require 'libmpsse/spi_device'
 end

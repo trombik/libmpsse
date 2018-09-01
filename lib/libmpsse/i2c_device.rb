@@ -4,6 +4,7 @@ module LibMpsse
     # Abstract class of I2C device. A class that represents I2C device.
     # Provides methods to talk to I2C slave device.
 
+    include LibMpsse::SerialProtocol
     # Constant that represents ACK has been received
     ACK = 0
     # Constant that represents ACK has not been received
@@ -41,14 +42,6 @@ module LibMpsse
     # @return [LibMpsse::Mpsse] new {LibMpsse::Mpsse} context
     def new_context
       Mpsse.new(mode: Modes[:i2c], freq: @freq, endianess: MSB, device: @device)
-    end
-
-    # Wrap I2c transaction with I2C start and stop
-    def transaction
-      @mpsse.start
-      yield
-    ensure
-      @mpsse.stop
     end
 
     # Write bytes of data to the device
