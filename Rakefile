@@ -8,7 +8,7 @@ task :rubocop do
 end
 
 task :yard do
-  sh 'yard'
+  sh "bundle exec yardoc --fail-on-warning 'lib/**/*.rb'"
 end
 
 task default: %i[spec rubocop yard]
