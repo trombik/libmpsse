@@ -20,7 +20,7 @@ module LibMpsse
     #
     # @param state [:high, :low] desired idle state
     def cs_idle(state)
-      @mpsse.SetCSIdle(state)
+      @mpsse.cs_idle(state)
     end
   end
 end

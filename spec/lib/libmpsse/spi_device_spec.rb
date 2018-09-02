@@ -85,4 +85,30 @@ describe LibMpsse::SPIDevice do
       )
     end
   end
+
+  describe '.cs_idle' do
+    context 'when given :high' do
+      it 'calles SetCSIdle with 1' do
+        allow(libmpsse).to receive(:SetCSIdle)
+
+        spi.cs_idle(:high)
+
+        expect(libmpsse).to have_received(:SetCSIdle).with(
+          instance_of(LibMpsse::Context), 1
+        )
+      end
+    end
+
+    context 'when give :low' do
+      it 'calles SetCSIdle with 0' do
+        allow(libmpsse).to receive(:SetCSIdle)
+
+        spi.cs_idle(:low)
+
+        expect(libmpsse).to have_received(:SetCSIdle).with(
+          instance_of(LibMpsse::Context), 0
+        )
+      end
+    end
+  end
 end
