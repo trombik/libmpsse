@@ -3,9 +3,13 @@ module LibMpsse
   module SPI
     # write array of data to SPI bus
     #
-    # @param data [Array<Integer>] array of data to write
+    # @param data [Array<Integer>, Integer] a value or array of values to write
     def write(data)
-      @mpsse.write(data)
+      if data.is_a?(Array)
+        @mpsse.write(data)
+      else
+        @mpsse.write([data])
+      end
     end
 
     # read `size` byte of data from SPI bus
