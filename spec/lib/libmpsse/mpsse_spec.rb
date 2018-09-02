@@ -4,7 +4,11 @@ describe LibMpsse::Mpsse do
   let(:libmpsse) { class_double('LibMpsse').as_stubbed_const(transfer_nested_constants: true) }
   let(:mpsse) { described_class.new(mode: LibMpsse::Modes[:i2c]) }
   let(:context) do
-    { open: 1, mode: LibMpsse::Modes[:i2c] }
+    ptr = FFI::MemoryPointer.new(LibMpsse::Context.size)
+    struct = LibMpsse::Context.new FFI::Pointer.new(ptr)
+    struct[:open] = 1
+    struct[:mode] = LibMpsse::Modes[:i2c]
+    struct
   end
 
   before(:each) do
