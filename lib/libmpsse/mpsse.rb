@@ -64,7 +64,7 @@ module LibMpsse
     # Performs a bit-wise read of up to 8 bits.
     #
     # @param size [Integer] number of bits to read
-    # @retrun an 8-bit byte containing the read bits
+    # @return an 8-bit byte containing the read bits
     def read_bits(size = 8)
       LibMpsse::ReadBits(context, size)
     end
