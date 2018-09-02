@@ -70,19 +70,38 @@ describe LibMpsse::SPIDevice do
   end
 
   describe '.write' do
-    it 'writes butes to SPI bus' do
-      bytes = [0xdead, 0xbeef]
-      allow(libmpsse).to receive(:Write).and_return(0)
-      status = 1
+    context 'when given an array' do
+      it 'writes butes to SPI bus' do
+        bytes = [0xdead, 0xbeef]
+        allow(libmpsse).to receive(:Write).and_return(0)
+        status = 1
 
-      expect do
-        spi.transaction do
-          status = spi.write(bytes)
-        end
-      end.not_to raise_error
-      expect(libmpsse).to have_received(:Write).with(
-        instance_of(LibMpsse::Context), instance_of(FFI::MemoryPointer), bytes.length
-      )
+        expect do
+          spi.transaction do
+            status = spi.write(bytes)
+          end
+        end.not_to raise_error
+        expect(libmpsse).to have_received(:Write).with(
+          instance_of(LibMpsse::Context), instance_of(FFI::MemoryPointer), bytes.length
+        )
+      end
+    end
+
+    context 'when given a single param' do
+      it 'writes a byte to SPI bus' do
+        byte = 0xdead
+        allow(libmpsse).to receive(:Write).and_return(0)
+        status = 1
+
+        expect do
+          spi.transaction do
+            status = spi.write(byte)
+          end
+        end.not_to raise_error
+        expect(libmpsse).to have_received(:Write).with(
+          instance_of(LibMpsse::Context), instance_of(FFI::MemoryPointer), 1
+        )
+      end
     end
   end
 
