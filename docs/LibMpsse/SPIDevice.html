@@ -104,7 +104,19 @@
   
 </div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>A class that represents SPI device. Provides methods to talk to SPI slave
+device.</p>
 
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
 
 
 
@@ -326,16 +338,16 @@
       <pre class="lines">
 
 
-20
-21
 22
 23
 24
 25
-26</pre>
+26
+27
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/libmpsse/spi_device.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'lib/libmpsse/spi_device.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>mode:</span><span class='comma'>,</span> <span class='label'>freq:</span><span class='comma'>,</span> <span class='label'>endianess:</span><span class='comma'>,</span> <span class='label'>device:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='ivar'>@mode</span> <span class='op'>=</span> <span class='id identifier rubyid_mode'>mode</span>
@@ -400,12 +412,12 @@
       <pre class="lines">
 
 
-12
-13
-14</pre>
+14
+15
+16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/libmpsse/spi_device.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'lib/libmpsse/spi_device.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mpsse'>mpsse</span>
   <span class='ivar'>@mpsse</span>
@@ -461,12 +473,12 @@
       <pre class="lines">
 
 
-30
-31
-32</pre>
+32
+33
+34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/libmpsse/spi_device.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'lib/libmpsse/spi_device.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new_context'>new_context</span>
   <span class='const'><span class='object_link'><a href="Mpsse.html" title="LibMpsse::Mpsse (class)">Mpsse</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Mpsse.html#initialize-instance_method" title="LibMpsse::Mpsse#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>mode:</span> <span class='ivar'>@mode</span><span class='comma'>,</span> <span class='label'>freq:</span> <span class='ivar'>@freq</span><span class='comma'>,</span> <span class='label'>endianess:</span> <span class='ivar'>@endianess</span><span class='comma'>,</span> <span class='label'>device:</span> <span class='ivar'>@device</span><span class='rparen'>)</span>

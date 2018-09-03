@@ -112,7 +112,8 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>Namespace for libmpsse</p>
+<p>A class that represents I2C device. Provides methods to talk to I2C slave
+device.</p>
 
 
   </div>
@@ -397,16 +398,16 @@ start. default is true.</p>
       <pre class="lines">
 
 
+29
+30
 31
 32
 33
 34
-35
-36
-37</pre>
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/libmpsse/i2c_device.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/libmpsse/i2c_device.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>address:</span><span class='comma'>,</span> <span class='label'>freq:</span> <span class='const'><span class='object_link'><a href="../LibMpsse.html#ClockRates-constant" title="LibMpsse::ClockRates (constant)">ClockRates</a></span></span><span class='lbracket'>[</span><span class='symbol'>:one_hundred_khz</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>device:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='ivar'>@address</span> <span class='op'>=</span> <span class='id identifier rubyid_address'>address</span>
@@ -471,12 +472,12 @@ start. default is true.</p>
       <pre class="lines">
 
 
-13
-14
-15</pre>
+11
+12
+13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/libmpsse/i2c_device.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/libmpsse/i2c_device.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_address'>address</span>
   <span class='ivar'>@address</span>
@@ -532,12 +533,12 @@ start. default is true.</p>
       <pre class="lines">
 
 
-15
-16
-17</pre>
+13
+14
+15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/libmpsse/i2c_device.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'lib/libmpsse/i2c_device.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_freq'>freq</span>
   <span class='ivar'>@freq</span>
@@ -593,12 +594,12 @@ start. default is true.</p>
       <pre class="lines">
 
 
-17
-18
-19</pre>
+15
+16
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/libmpsse/i2c_device.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'lib/libmpsse/i2c_device.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mpsse'>mpsse</span>
   <span class='ivar'>@mpsse</span>
@@ -659,12 +660,12 @@ start. default is true.</p>
       <pre class="lines">
 
 
-42
-43
-44</pre>
+40
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/libmpsse/i2c_device.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/libmpsse/i2c_device.rb', line 40</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new_context'>new_context</span>
   <span class='const'><span class='object_link'><a href="Mpsse.html" title="LibMpsse::Mpsse (class)">Mpsse</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Mpsse.html#initialize-instance_method" title="LibMpsse::Mpsse#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>mode:</span> <span class='const'><span class='object_link'><a href="../LibMpsse.html#Modes-constant" title="LibMpsse::Modes (constant)">Modes</a></span></span><span class='lbracket'>[</span><span class='symbol'>:i2c</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>freq:</span> <span class='ivar'>@freq</span><span class='comma'>,</span> <span class='label'>endianess:</span> <span class='const'><span class='object_link'><a href="../LibMpsse.html#MSB-constant" title="LibMpsse::MSB (constant)">MSB</a></span></span><span class='comma'>,</span> <span class='label'>device:</span> <span class='ivar'>@device</span><span class='rparen'>)</span>
