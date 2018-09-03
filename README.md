@@ -10,7 +10,7 @@ any other variants like
 speak I2C and SPI, or bitbang, over USB. Breakout boards are available at
 [digikey](https://www.digikey.com/catalog/en/partgroup/ft2232h-evaluation-board-ft2232h-mini-module/15377) (27 USD),
 [aliexpress](https://www.aliexpress.com/wholesale?SearchText=FT2232HL+development+board)
-(13 USD), and many others. The chip supports 3.3 V and % V devices. Now you
+(13 USD), and many others. The chip supports 3.3 V and 5 V devices. Now you
 can [read values from BME280](examples/bme280).
 
 ## Prerequisites
