@@ -1,5 +1,33 @@
 require 'ftdi'
 
+module Ftdi
+  # overide Ftdi::Context
+  #
+  # as LibMpsse::Context includes Ftdi::Context, when the context object is
+  # outof scope, Ftdi::Context gets free()ed, which is not desired because
+  # libmpsse manages the Ftdi::Context. libftdi-ruby should call Ftdi.free()
+  # when and only when it allocates Ftdi::Context. the patched version does not
+  # free() Ftdi::Context if the object is created by others. without the patch,
+  # applications crush.
+  class Context
+    def initialize(ptr = nil)
+      if ptr.nil?
+        ptr = Ftdi.ftdi_new
+        @release_me = true
+      else
+        @release_me = false
+      end
+      super(ptr)
+    end
+
+    # free the pointer when and only when memory pointer is allocated by the
+    # class itself
+    def self.release(ptr)
+      super(ptr) if @release_me
+    end
+  end
+end
+
 module LibMpsse
   # libpsse context
   class Context < FFI::ManagedStruct
