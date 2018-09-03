@@ -5,7 +5,9 @@ module LibMpsse
     # Provides methods to talk to I2C slave device.
 
     include LibMpsse::SerialProtocol
+    # @!parse extend LibMpsse::SerialProtocol
     include LibMpsse::I2C
+    # @!parse extend LibMpsse::I2C
 
     # @return [Integer] I2C address of the slave
     attr_reader :address
