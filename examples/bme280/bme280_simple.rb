@@ -30,7 +30,7 @@ ADDRESS = {
   chip_id: 0xD0,
   reset: 0xE0,
   ctrl_meas: 0xF4
-}.freeze!
+}.freeze
 RESET_COMMAND = 0xB6
 
 bme280 = BME280.new(
