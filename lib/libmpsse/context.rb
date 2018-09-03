@@ -30,6 +30,7 @@ end
 
 module LibMpsse
   # libpsse context
+  # @see https://github.com/devttys0/libmpsse/blob/master/src/mpsse.h
   class Context < FFI::ManagedStruct
     layout :description,      :string,
            :ftdi_context,     Ftdi::Context,
