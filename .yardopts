@@ -1,1 +1,2 @@
 --output-dir docs
+--template-path .yard/customtemplates

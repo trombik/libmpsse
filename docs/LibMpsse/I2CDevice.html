@@ -85,6 +85,11 @@
 
   
   
+  <dl>
+      <dt>Extended by:</dt>
+      <dd><span class='object_link'><a href="I2C.html" title="LibMpsse::I2C (module)">I2C</a></span></dd>
+  </dl>
+  
   
   
   <dl>
@@ -291,7 +296,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="I2C.html" title="LibMpsse::I2C (module)">I2C</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="I2C.html#ack-instance_method" title="LibMpsse::I2C#ack (method)">#ack</a></span>, <span class='object_link'><a href="I2C.html#ensure_ack-instance_method" title="LibMpsse::I2C#ensure_ack (method)">#ensure_ack</a></span>, <span class='object_link'><a href="I2C.html#ping-instance_method" title="LibMpsse::I2C#ping (method)">#ping</a></span>, <span class='object_link'><a href="I2C.html#read-instance_method" title="LibMpsse::I2C#read (method)">#read</a></span>, <span class='object_link'><a href="I2C.html#read16-instance_method" title="LibMpsse::I2C#read16 (method)">#read16</a></span>, <span class='object_link'><a href="I2C.html#read16_bits-instance_method" title="LibMpsse::I2C#read16_bits (method)">#read16_bits</a></span>, <span class='object_link'><a href="I2C.html#read8-instance_method" title="LibMpsse::I2C#read8 (method)">#read8</a></span>, <span class='object_link'><a href="I2C.html#read8_bits-instance_method" title="LibMpsse::I2C#read8_bits (method)">#read8_bits</a></span>, <span class='object_link'><a href="I2C.html#repeated_start-instance_method" title="LibMpsse::I2C#repeated_start (method)">#repeated_start</a></span>, <span class='object_link'><a href="I2C.html#write-instance_method" title="LibMpsse::I2C#write (method)">#write</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="I2C.html#ack-instance_method" title="LibMpsse::I2C#ack (method)">ack</a></span>, <span class='object_link'><a href="I2C.html#ensure_ack-instance_method" title="LibMpsse::I2C#ensure_ack (method)">ensure_ack</a></span>, <span class='object_link'><a href="I2C.html#ping-instance_method" title="LibMpsse::I2C#ping (method)">ping</a></span>, <span class='object_link'><a href="I2C.html#read-instance_method" title="LibMpsse::I2C#read (method)">read</a></span>, <span class='object_link'><a href="I2C.html#read16-instance_method" title="LibMpsse::I2C#read16 (method)">read16</a></span>, <span class='object_link'><a href="I2C.html#read16_bits-instance_method" title="LibMpsse::I2C#read16_bits (method)">read16_bits</a></span>, <span class='object_link'><a href="I2C.html#read8-instance_method" title="LibMpsse::I2C#read8 (method)">read8</a></span>, <span class='object_link'><a href="I2C.html#read8_bits-instance_method" title="LibMpsse::I2C#read8_bits (method)">read8_bits</a></span>, <span class='object_link'><a href="I2C.html#repeated_start-instance_method" title="LibMpsse::I2C#repeated_start (method)">repeated_start</a></span>, <span class='object_link'><a href="I2C.html#write-instance_method" title="LibMpsse::I2C#write (method)">write</a></span></p>
 
   
   
@@ -392,16 +397,16 @@ start. default is true.</p>
       <pre class="lines">
 
 
-29
-30
 31
 32
 33
 34
-35</pre>
+35
+36
+37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/libmpsse/i2c_device.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'lib/libmpsse/i2c_device.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>address:</span><span class='comma'>,</span> <span class='label'>freq:</span> <span class='const'><span class='object_link'><a href="../LibMpsse.html#ClockRates-constant" title="LibMpsse::ClockRates (constant)">ClockRates</a></span></span><span class='lbracket'>[</span><span class='symbol'>:one_hundred_khz</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>device:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='ivar'>@address</span> <span class='op'>=</span> <span class='id identifier rubyid_address'>address</span>
@@ -466,12 +471,12 @@ start. default is true.</p>
       <pre class="lines">
 
 
-11
-12
-13</pre>
+13
+14
+15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/libmpsse/i2c_device.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'lib/libmpsse/i2c_device.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_address'>address</span>
   <span class='ivar'>@address</span>
@@ -527,12 +532,12 @@ start. default is true.</p>
       <pre class="lines">
 
 
-13
-14
-15</pre>
+15
+16
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/libmpsse/i2c_device.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/libmpsse/i2c_device.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_freq'>freq</span>
   <span class='ivar'>@freq</span>
@@ -588,12 +593,12 @@ start. default is true.</p>
       <pre class="lines">
 
 
-15
-16
-17</pre>
+17
+18
+19</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/libmpsse/i2c_device.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'lib/libmpsse/i2c_device.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mpsse'>mpsse</span>
   <span class='ivar'>@mpsse</span>
@@ -654,12 +659,12 @@ start. default is true.</p>
       <pre class="lines">
 
 
-40
-41
-42</pre>
+42
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/libmpsse/i2c_device.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'lib/libmpsse/i2c_device.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new_context'>new_context</span>
   <span class='const'><span class='object_link'><a href="Mpsse.html" title="LibMpsse::Mpsse (class)">Mpsse</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Mpsse.html#initialize-instance_method" title="LibMpsse::Mpsse#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>mode:</span> <span class='const'><span class='object_link'><a href="../LibMpsse.html#Modes-constant" title="LibMpsse::Modes (constant)">Modes</a></span></span><span class='lbracket'>[</span><span class='symbol'>:i2c</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>freq:</span> <span class='ivar'>@freq</span><span class='comma'>,</span> <span class='label'>endianess:</span> <span class='const'><span class='object_link'><a href="../LibMpsse.html#MSB-constant" title="LibMpsse::MSB (constant)">MSB</a></span></span><span class='comma'>,</span> <span class='label'>device:</span> <span class='ivar'>@device</span><span class='rparen'>)</span>
@@ -673,12 +678,7 @@ start. default is true.</p>
 
 </div>
 
-      <div id="footer">
-  Generated on Mon Sep  3 19:01:21 2018 by
-  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.16 (ruby-2.4.4).
-</div>
-
+      
     </div>
   </body>
 </html>
