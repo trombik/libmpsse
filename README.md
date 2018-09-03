@@ -1,5 +1,7 @@
 # `LibMpsse` binding for ruby
 
+[![Build Status](https://travis-ci.com/trombik/libmpsse.svg?branch=master)](https://travis-ci.com/trombik/libmpsse)
+
 ## Description
 
 Ruby bindings for [libmpsse](https://github.com/devttys0/libmpsse).
