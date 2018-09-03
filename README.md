@@ -42,4 +42,6 @@ value = device.read8(register)
 puts format('address: 0x%0.2x: register: 0x%0.4x: 0x%0.2x', address, register, value)
 ```
 
+YARD documentation is available at: [github Pages][https://trombik.github.io/libmpsse-ruby/]
+
 For more examples, see [examples](examples).
