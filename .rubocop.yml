@@ -4,6 +4,7 @@ AllCops:
   Exclude:
     - 'Guardfile'
     - 'vendor/**/*'
+    - 'examples/bme280/bme280.rb'
 Style/Documentation:
   Enabled: false
 

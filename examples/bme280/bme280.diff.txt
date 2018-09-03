@@ -1,0 +1,89 @@
+--- bme280.rb.orig	2018-09-03 13:11:03.470557000 +0900
++++ bme280.rb	2018-09-03 13:16:09.000313000 +0900
+@@ -1,24 +1,16 @@
+-require 'i2c'
++#!/usr/bin/env ruby
++require 'libmpsse'
+ 
+-module I2C
++module SPI
+   module Driver
+     class BME280
+-      I2C_ADDRESS = 0x76 # I2C Bus address
+-
+-      # @param [Integer|String|I2C::Dev] device The I2C device id of i2c-dev, a string that points to the i2c-dev device file or an already initialized I2C::Dev instance
+-      # @param [Fixnum] i2c_address The i2c address of the BME280. Factory default is 0x76.
+-      def initialize(device:, i2c_address: I2C_ADDRESS)
+-        device = "/dev/i2c-#{device}" if device.is_a?(Integer)
+-
+-        if device.is_a?(String)
+-          raise ArgumentError, "I2C device #{device} not found. Is the I2C kernel module enabled?" unless File.exists?(device)
+-          device = I2C.create(device)
+-        end
+-
+-        raise ArgumentError unless device.is_a?(I2C::Dev)
+-
+-        @device = device
+-        @i2c_address = i2c_address
++      def initialize(freq: LibMpsse::ClockRates[:one_hundred_khz])
++        bme280 = LibMpsse::SPIDevice.new(
++          mode: LibMpsse::Modes[:spi0],
++          endianess: LibMpsse::MSB,
++          freq: freq
++        )
++        @device = bme280
+       end
+ 
+       # returns all sensor values in a hash
+@@ -45,6 +37,11 @@
+         data[:h]
+       end
+ 
++      # reset the device
++      def reset
++        write(0xE0, 0xB6)
++      end
++
+       private
+ 
+       # tells the chip to update its data registers
+@@ -52,7 +49,7 @@
+         s_t: 1,    # Temperature oversampling = x1
+         s_h: 1,    # Humidity oversampling = x1
+         s_p: 1,    # Pressure oversampling = x1
+-        mode: 1,   # Normal mode
++        mode: 1,   # Forced mode
+         t_s: 5,    # Standby time = 1000ms
+         filter: 0, # Disable filter
+         spi: 0     # Disable SPI
+@@ -161,13 +158,28 @@
+ 
+       # write to device
+       def write(reg_address, data)
+-        @device.write(@i2c_address, reg_address, data)
++        @device.transaction do
++          @device.write([reg_address & 0b01111111, data])
++        end
+       end
+ 
+       # read from device
+       def read(reg_address, size = 1)
+-        @device.read(@i2c_address, size, reg_address)
++        @device.transaction do
++          @device.write(reg_address)
++          value = @device.read(size)
++          value.pack('C*')
++        end
+       end
+     end
+   end
++end
++
++bme = SPI::Driver::BME280.new
++bme.reset
++sleep 1
++1.upto(10) do
++  data = bme.all
++  puts format('T: %0.3f H: %0.3f, P: %0.2f', data[:t], data[:h], data[:p])
++  sleep 1
+ end
