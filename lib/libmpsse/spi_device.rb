@@ -1,4 +1,6 @@
 module LibMpsse
+  # A class that represents SPI device. Provides methods to talk to SPI slave
+  # device.
   class SPIDevice
     include LibMpsse::SerialProtocol
     # @!parse extend LibMpsse::SerialProtocol

@@ -1,4 +1,5 @@
 module LibMpsse
+  # A class that represents abstracted libmpsse.
   class Mpsse
     attr_reader :context
 

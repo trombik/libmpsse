@@ -1,9 +1,7 @@
 module LibMpsse
-  # Namespace for libmpsse
+  # A class that represents I2C device. Provides methods to talk to I2C slave
+  # device.
   class I2CDevice
-    # Abstract class of I2C device. A class that represents I2C device.
-    # Provides methods to talk to I2C slave device.
-
     include LibMpsse::SerialProtocol
     # @!parse extend LibMpsse::SerialProtocol
     include LibMpsse::I2C
