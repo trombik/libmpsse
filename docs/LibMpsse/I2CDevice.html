@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: LibMpsse::I2CDevice
+  
+    &mdash; Documentation by YARD 0.9.16
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "LibMpsse::I2CDevice";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (I)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../LibMpsse.html" title="LibMpsse (module)">LibMpsse</a></span></span>
+     &raquo; 
+    <span class="title">I2CDevice</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: LibMpsse::I2CDevice
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">LibMpsse::I2CDevice</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  <dl>
+      <dt>Includes:</dt>
+      <dd><span class='object_link'><a href="I2C.html" title="LibMpsse::I2C (module)">I2C</a></span>, <span class='object_link'><a href="SerialProtocol.html" title="LibMpsse::SerialProtocol (module)">SerialProtocol</a></span></dd>
+  </dl>
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/libmpsse/i2c_device.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Namespace for libmpsse</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+  <h2>Constant Summary</h2>
+  
+  <h3 class="inherited">Constants included
+     from <span class='object_link'><a href="I2C.html" title="LibMpsse::I2C (module)">I2C</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="I2C.html#ACK-constant" title="LibMpsse::I2C::ACK (constant)">LibMpsse::I2C::ACK</a></span>, <span class='object_link'><a href="I2C.html#NACK-constant" title="LibMpsse::I2C::NACK (constant)">LibMpsse::I2C::NACK</a></span></p>
+
+
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#address-instance_method" title="#address (instance method)">#<strong>address</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>I2C address of the slave.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#freq-instance_method" title="#freq (instance method)">#<strong>freq</strong>  &#x21d2; LibMpsse::ClockRates </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>I2C clock frequency.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#mpsse-instance_method" title="#mpsse (instance method)">#<strong>mpsse</strong>  &#x21d2; LibMpsse::Mpsse </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>MPSSE context.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(address:, freq: ClockRates[:one_hundred_khz], device: {})  &#x21d2; LibMpsse::I2CDevice </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Create a <span class='object_link'><a href="" title="LibMpsse::I2CDevice (class)">I2CDevice</a></span>.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#new_context-instance_method" title="#new_context (instance method)">#<strong>new_context</strong>  &#x21d2; LibMpsse::Mpsse </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Create <span class='object_link'><a href="Mpsse.html" title="LibMpsse::Mpsse (class)">Mpsse</a></span> context object.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="I2C.html" title="LibMpsse::I2C (module)">I2C</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="I2C.html#ack-instance_method" title="LibMpsse::I2C#ack (method)">#ack</a></span>, <span class='object_link'><a href="I2C.html#ensure_ack-instance_method" title="LibMpsse::I2C#ensure_ack (method)">#ensure_ack</a></span>, <span class='object_link'><a href="I2C.html#ping-instance_method" title="LibMpsse::I2C#ping (method)">#ping</a></span>, <span class='object_link'><a href="I2C.html#read-instance_method" title="LibMpsse::I2C#read (method)">#read</a></span>, <span class='object_link'><a href="I2C.html#read16-instance_method" title="LibMpsse::I2C#read16 (method)">#read16</a></span>, <span class='object_link'><a href="I2C.html#read16_bits-instance_method" title="LibMpsse::I2C#read16_bits (method)">#read16_bits</a></span>, <span class='object_link'><a href="I2C.html#read8-instance_method" title="LibMpsse::I2C#read8 (method)">#read8</a></span>, <span class='object_link'><a href="I2C.html#read8_bits-instance_method" title="LibMpsse::I2C#read8_bits (method)">#read8_bits</a></span>, <span class='object_link'><a href="I2C.html#repeated_start-instance_method" title="LibMpsse::I2C#repeated_start (method)">#repeated_start</a></span>, <span class='object_link'><a href="I2C.html#write-instance_method" title="LibMpsse::I2C#write (method)">#write</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="SerialProtocol.html" title="LibMpsse::SerialProtocol (module)">SerialProtocol</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="SerialProtocol.html#start-instance_method" title="LibMpsse::SerialProtocol#start (method)">#start</a></span>, <span class='object_link'><a href="SerialProtocol.html#stop-instance_method" title="LibMpsse::SerialProtocol#stop (method)">#stop</a></span>, <span class='object_link'><a href="SerialProtocol.html#transaction-instance_method" title="LibMpsse::SerialProtocol#transaction (method)">#transaction</a></span></p>
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>(address:, freq: ClockRates[:one_hundred_khz], device: {})  &#x21d2; <tt><span class='object_link'><a href="" title="LibMpsse::I2CDevice (class)">LibMpsse::I2CDevice</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Create a <span class='object_link'><a href="" title="LibMpsse::I2CDevice (class)">LibMpsse::I2CDevice</a></span>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>address</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>I2C slave address</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>freq</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../LibMpsse.html#ClockRates-constant" title="LibMpsse::ClockRates (constant)">LibMpsse::ClockRates</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>I2C clock frequency</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>device</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>choose device with specific attributes. see device parameter of
+<span class='object_link'><a href="Mpsse.html#initialize-instance_method" title="LibMpsse::Mpsse#initialize (method)">Mpsse#initialize</a></span>. Additionally, the following attributes are
+supported:</p>
+<ul><li>
+<p>:with_repeated_start (Bool) if true, use repeated start condition during
+I2C read transaction. if false read operation will be performed in two I2C
+transaction. set this to false if the device does not support repeated
+start. default is true.</p>
+</li></ul>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+29
+30
+31
+32
+33
+34
+35</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/libmpsse/i2c_device.rb', line 29</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>address:</span><span class='comma'>,</span> <span class='label'>freq:</span> <span class='const'><span class='object_link'><a href="../LibMpsse.html#ClockRates-constant" title="LibMpsse::ClockRates (constant)">ClockRates</a></span></span><span class='lbracket'>[</span><span class='symbol'>:one_hundred_khz</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>device:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='ivar'>@address</span> <span class='op'>=</span> <span class='id identifier rubyid_address'>address</span>
+  <span class='ivar'>@freq</span> <span class='op'>=</span> <span class='id identifier rubyid_freq'>freq</span>
+  <span class='ivar'>@device</span> <span class='op'>=</span> <span class='id identifier rubyid_device'>device</span>
+  <span class='ivar'>@repeated_start_required</span> <span class='op'>=</span> <span class='id identifier rubyid_device'>device</span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span><span class='lparen'>(</span><span class='symbol'>:with_repeated_start</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_device'>device</span><span class='lbracket'>[</span><span class='symbol'>:with_repeated_start</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='kw'>true</span>
+  <span class='ivar'>@mpsse</span> <span class='op'>=</span> <span class='id identifier rubyid_new_context'>new_context</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="address-instance_method">
+  
+    #<strong>address</strong>  &#x21d2; <tt>Integer</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns I2C address of the slave</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>I2C address of the slave</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+11
+12
+13</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/libmpsse/i2c_device.rb', line 11</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_address'>address</span>
+  <span class='ivar'>@address</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="freq-instance_method">
+  
+    #<strong>freq</strong>  &#x21d2; <tt><span class='object_link'><a href="../LibMpsse.html#ClockRates-constant" title="LibMpsse::ClockRates (constant)">LibMpsse::ClockRates</a></span></tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns I2C clock frequency</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../LibMpsse.html#ClockRates-constant" title="LibMpsse::ClockRates (constant)">LibMpsse::ClockRates</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>I2C clock frequency</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+13
+14
+15</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/libmpsse/i2c_device.rb', line 13</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_freq'>freq</span>
+  <span class='ivar'>@freq</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="mpsse-instance_method">
+  
+    #<strong>mpsse</strong>  &#x21d2; <tt><span class='object_link'><a href="Mpsse.html" title="LibMpsse::Mpsse (class)">LibMpsse::Mpsse</a></span></tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns MPSSE context</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Mpsse.html" title="LibMpsse::Mpsse (class)">LibMpsse::Mpsse</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>MPSSE context</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+15
+16
+17</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/libmpsse/i2c_device.rb', line 15</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_mpsse'>mpsse</span>
+  <span class='ivar'>@mpsse</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="new_context-instance_method">
+  
+    #<strong>new_context</strong>  &#x21d2; <tt><span class='object_link'><a href="Mpsse.html" title="LibMpsse::Mpsse (class)">LibMpsse::Mpsse</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Create <span class='object_link'><a href="Mpsse.html" title="LibMpsse::Mpsse (class)">Mpsse</a></span> context object</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Mpsse.html" title="LibMpsse::Mpsse (class)">LibMpsse::Mpsse</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>new <span class='object_link'><a href="Mpsse.html" title="LibMpsse::Mpsse (class)">Mpsse</a></span> context</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+40
+41
+42</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/libmpsse/i2c_device.rb', line 40</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_new_context'>new_context</span>
+  <span class='const'><span class='object_link'><a href="Mpsse.html" title="LibMpsse::Mpsse (class)">Mpsse</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Mpsse.html#initialize-instance_method" title="LibMpsse::Mpsse#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>mode:</span> <span class='const'><span class='object_link'><a href="../LibMpsse.html#Modes-constant" title="LibMpsse::Modes (constant)">Modes</a></span></span><span class='lbracket'>[</span><span class='symbol'>:i2c</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>freq:</span> <span class='ivar'>@freq</span><span class='comma'>,</span> <span class='label'>endianess:</span> <span class='const'><span class='object_link'><a href="../LibMpsse.html#MSB-constant" title="LibMpsse::MSB (constant)">MSB</a></span></span><span class='comma'>,</span> <span class='label'>device:</span> <span class='ivar'>@device</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Mon Sep  3 19:01:21 2018 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.16 (ruby-2.4.4).
+</div>
+
+    </div>
+  </body>
+</html>
