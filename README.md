@@ -1,4 +1,4 @@
-# LibMpsse
+# `LibMpsse` binding for ruby
 
 ## Description
 
@@ -6,10 +6,8 @@ Ruby bindings for [libmpsse](https://github.com/devttys0/libmpsse).
 
 ## Prerequisites
 
-* libmpsse, and its dependency, libftdi
-
-Currently, patched version of `libftdi-ruby` is used, which means no gem
-available. Use bundler for the moment.
+* [libmpsse](https://github.com/devttys0/libmpsse), and its dependency,
+  [libftdi](https://www.intra2net.com/en/developer/libftdi/)
 
 ## Current status
 
@@ -17,7 +15,7 @@ available. Use bundler for the moment.
 |---------|---------------------|
 | Bitbang | In progress         |
 | I2C     | Implemented         |
-| SPI     | Not yet implemented |
+| SPI     | Implemented         |
 
 ## Synopsis
 
@@ -25,6 +23,9 @@ available. Use bundler for the moment.
 #!/usr/bin/env ruby
 require 'libmpsse'
 
+# read a value from 8 bit register
+
+register = 0x01
 device = LibMpsse::I2CDevice.new(adress: address)
 value = device.read8(register)
 puts format('address: 0x%0.2x: register: 0x%0.4x: 0x%0.2x', address, register, value)
